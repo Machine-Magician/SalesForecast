@@ -1,0 +1,20 @@
+{
+  "batch_num": 1,
+  "version": "20260317_123253",
+  "total_records": 18070,
+  "total_columns": 69,
+  "trend_columns": [
+    "trend_Кварк",
+    "trend_Молоко",
+    "trend_Намазка",
+    "trend_Сливочное масло",
+    "trend_Сыр",
+    "trend_йогурт",
+    "trend_кефир"
+  ],
+  "date_range": {
+    "min": "2025-03-16",
+    "max": "2026-03-16"
+  },
+  "saved_at": "2026-03-17T12:32:53.544584"
+}

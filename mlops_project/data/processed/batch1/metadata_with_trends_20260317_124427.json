@@ -1,0 +1,27 @@
+{
+  "batch_num": 1,
+  "version": "20260317_124427",
+  "total_records": 18070,
+  "total_columns": 76,
+  "trend_columns": [
+    "trend_Кварк_x",
+    "trend_Молоко_x",
+    "trend_Намазка_x",
+    "trend_Сливочное масло_x",
+    "trend_Сыр_x",
+    "trend_йогурт_x",
+    "trend_кефир_x",
+    "trend_Кварк_y",
+    "trend_Молоко_y",
+    "trend_Намазка_y",
+    "trend_Сливочное масло_y",
+    "trend_Сыр_y",
+    "trend_йогурт_y",
+    "trend_кефир_y"
+  ],
+  "date_range": {
+    "min": "2025-03-16",
+    "max": "2026-03-16"
+  },
+  "saved_at": "2026-03-17T12:44:27.297476"
+}

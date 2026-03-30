@@ -1,0 +1,308 @@
+# ~/mlops_project/dags/sales_forecast_dag.py
+
+from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
+import pandas as pd
+import numpy as np
+import xgboost as xgb
+from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
+import joblib
+import json
+from minio import Minio
+from io import BytesIO
+import os
+
+default_args = {
+    'owner': 'data_scientist',           # Кто владелец этого DAG (полезно в команде)
+    'depends_on_past': False,            # Запуск задачи НЕ зависит от успеха предыдущего запуска
+    'start_date': datetime(2024, 1, 1),  # С какой даты начинать планировать запуски
+    'email_on_failure': True,            # Отправлять email при падении задачи
+    'email_on_retry': False,             # НЕ отправлять email при повторных попытках
+    'retries': 1,                        # Сколько раз повторить задачу при ошибке
+    'retry_delay': timedelta(minutes=5), # Пауза между повторами (5 минут)
+}
+
+def extract_data(**context):
+    """Извлечение данных из БД через ваш класс"""
+    import sys
+    sys.path.append('/opt/airflow/scripts')
+    from database_checker import DatabaseChecker
+
+    # Получаем данные
+    checker = DatabaseChecker(use_sa_login=True)
+    df = checker.get_sales_data('Пр.из творога "365 дней" 24%.500г.пакет.8шт')
+
+    # Сохраняем в Minio как сырые данные
+    client = Minio(
+        endpoint="host.docker.internal:9002",
+        access_key="minioadmin",
+        secret_key="minioadmin",
+        secure=False
+    )
+
+    buffer = BytesIO()
+    df.to_parquet(buffer, index=False)  # Конвертирует DataFrame в бинарный формат Parquet
+    buffer.seek(0)                       # Перемещает курсор в начало буфера
+
+    #сохраняем в minio
+    date_str = datetime.now().strftime('%Y%m%d')
+    client.put_object(
+        "ml-datasets",                              # Имя бакета
+        f"raw/tvorog_{date_str}.parquet",           # Путь к файлу
+        data=buffer,                                 # Данные
+        length=buffer.getbuffer().nbytes,            # Размер данных
+        content_type='application/parquet'           # Тип файла
+    )
+
+    # Сохраняем путь для следующих тасков
+    context['ti'].xcom_push(key='raw_data_path', value=f"raw/tvorog_{date_str}.parquet")
+    return f"Данные сохранены: raw/tvorog_{date_str}.parquet"
+
+def prepare_features(**context):
+    """Подготовка признаков"""
+    client = Minio(
+        endpoint="host.docker.internal:9002",
+        access_key="minioadmin",
+        secret_key="minioadmin",
+        secure=False
+    )
+
+    # Загружаем сырые данные
+    raw_path = context['ti'].xcom_pull(key='raw_data_path')
+    response = client.get_object("ml-datasets", raw_path)
+    df = pd.read_parquet(BytesIO(response.read()))
+
+    # ВАШ КОД ПОДГОТОВКИ ПРИЗНАКОВ
+    # (копируем сюда все шаги feature engineering)
+    df['Дата'] = pd.to_datetime(df['Дата'].astype(str).str.replace('402', '202'))
+
+    # Добавляем временные признаки
+    df['Год'] = df['Дата'].dt.year
+    df['Месяц'] = df['Дата'].dt.month
+    df['День_недели'] = df['Дата'].dt.dayofweek
+    df['Час'] = df['Дата'].dt.hour
+
+    # Циклические признаки
+    df['Месяц_sin'] = np.sin(2 * np.pi * df['Месяц'] / 12)
+    df['Месяц_cos'] = np.cos(2 * np.pi * df['Месяц'] / 12)
+    df['Час_sin'] = np.sin(2 * np.pi * df['Час'] / 24)
+    df['Час_cos'] = np.cos(2 * np.pi * df['Час'] / 24)
+
+    # Признаки по организациям
+    org_stats = df.groupby('Организация')['Количество'].agg(['mean', 'std']).fillna(0)
+    org_stats_dict = org_stats.to_dict('index')
+    df['org_mean_sales'] = df['Организация'].map(lambda x: org_stats_dict.get(x, {}).get('mean', 0))
+    df['org_std_sales'] = df['Организация'].map(lambda x: org_stats_dict.get(x, {}).get('std', 0))
+
+    # Признаки по контрагентам
+    kontr_stats = df.groupby('Контрагент')['Количество'].agg(['mean', 'std']).fillna(0)
+    kontr_stats_dict = kontr_stats.to_dict('index')
+    df['kontr_mean_sales'] = df['Контрагент'].map(lambda x: kontr_stats_dict.get(x, {}).get('mean', 0))
+    df['kontr_std_sales'] = df['Контрагент'].map(lambda x: kontr_stats_dict.get(x, {}).get('std', 0))
+
+    # Типы продаж
+    df['тип_опт'] = (df['Количество'] > 500).astype(int)
+    df['тип_розница'] = ((df['Количество'] <= 500) & (df['Количество'] > 50)).astype(int)
+    df['тип_мелкая_розница'] = (df['Количество'] <= 50).astype(int)
+
+    # Сохраняем признаки
+    date_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+    buffer = BytesIO()
+    df.to_parquet(buffer, index=False)
+    buffer.seek(0)
+
+    features_path = f"features/tvorog_{date_str}.parquet"
+    client.put_object(
+        "ml-datasets",
+        features_path,
+        data=buffer,
+        length=buffer.getbuffer().nbytes,
+        content_type='application/parquet'
+    )
+
+    context['ti'].xcom_push(key='features_path', value=features_path)
+    return f"Признаки сохранены: {features_path}"
+
+def train_models(**context):
+    """Обучение моделей с логированием гиперпараметров"""
+
+    # Гиперпараметры (можно вынести в переменные Airflow)
+    params = {
+        'n_estimators': 500,
+        'learning_rate': 0.05,
+        'max_depth': 5,
+        'min_child_weight': 3,
+        'subsample': 0.8,
+        'colsample_bytree': 0.8,
+        'reg_alpha': 0.1,
+        'reg_lambda': 0.1,
+        'random_state': 42,
+        'early_stopping_rounds': 50,
+        'eval_metric': 'rmse'
+    }
+
+    # Сохраняем гиперпараметры
+    context['ti'].xcom_push(key='model_params', value=params)
+
+    client = Minio(
+        endpoint="host.docker.internal:9002",
+        access_key="minioadmin",
+        secret_key="minioadmin",
+        secure=False
+    )
+
+    # Загружаем признаки
+    features_path = context['ti'].xcom_pull(key='features_path')
+    response = client.get_object("ml-datasets", features_path)
+    df = pd.read_parquet(BytesIO(response.read()))
+
+    # Разделение по времени
+    cutoff_date = datetime.now().date() - timedelta(days=30)
+    train_data = df[df['Дата'].dt.date < cutoff_date].copy()
+    test_data = df[df['Дата'].dt.date >= cutoff_date].copy()
+
+    # Удаляем нечисловые
+    non_numeric = ['Дата', 'Организация', 'Контрагент']
+    train_data = train_data.drop(columns=[c for c in non_numeric if c in train_data.columns])
+    test_data = test_data.drop(columns=[c for c in non_numeric if c in test_data.columns])
+
+    target = 'Количество'
+    feature_cols = [c for c in train_data.columns if c != target]
+
+    # Модель для опта
+    opt_mask = train_data['тип_опт'] == 1
+    if opt_mask.sum() > 50:
+        X_opt_train = train_data[opt_mask][feature_cols]
+        y_opt_train = train_data[opt_mask][target]
+
+        model_opt = xgb.XGBRegressor(**params)
+        model_opt.fit(X_opt_train, y_opt_train)
+
+        # Сохраняем модель опта
+        buffer = BytesIO()
+        joblib.dump(model_opt, buffer)
+        buffer.seek(0)
+
+        model_path = f"models/opt_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pkl"
+        client.put_object(
+            "ml-models",
+            model_path,
+            data=buffer,
+            length=buffer.getbuffer().nbytes,
+            content_type='application/octet-stream'
+        )
+
+        # Оценка
+        X_opt_test = test_data[test_data['тип_опт'] == 1][feature_cols]
+        y_opt_test = test_data[test_data['тип_опт'] == 1][target]
+        if len(X_opt_test) > 0:
+            pred = model_opt.predict(X_opt_test)
+            mape = mean_absolute_percentage_error(y_opt_test, pred) * 100
+            context['ti'].xcom_push(key='opt_mape', value=mape)
+
+    # Аналогично для розницы...
+
+    return "Модели обучены"
+
+def create_forecast(**context):
+    """Создание прогноза"""
+    # Загружаем модели и делаем прогноз
+    # Аналогично вашему SalesForecaster
+
+    # Сохраняем прогноз в Minio
+    forecast_df = pd.DataFrame()  # ваш прогноз
+
+    buffer = BytesIO()
+    forecast_df.to_csv(buffer, index=False, encoding='utf-8-sig')
+    buffer.seek(0)
+
+    client = Minio(
+        endpoint="host.docker.internal:9002",
+        access_key="minioadmin",
+        secret_key="minioadmin",
+        secure=False
+    )
+
+    forecast_path = f"forecasts/tvorog_{datetime.now().strftime('%Y%m%d')}.csv"
+    client.put_object(
+        "sales-analytics",
+        forecast_path,
+        data=buffer,
+        length=buffer.getbuffer().nbytes,
+        content_type='text/csv; charset=utf-8'
+    )
+
+    context['ti'].xcom_push(key='forecast_path', value=forecast_path)
+    return f"Прогноз сохранен: {forecast_path}"
+
+def save_report(**context):
+    """Сохранение отчета с метриками"""
+    metrics = {
+        'date': datetime.now().isoformat(),
+        'opt_mape': context['ti'].xcom_pull(key='opt_mape'),
+        'model_params': context['ti'].xcom_pull(key='model_params'),
+        'data_version': context['ti'].xcom_pull(key='features_path'),
+        'forecast_path': context['ti'].xcom_pull(key='forecast_path')
+    }
+
+    # Сохраняем метрики в JSON
+    buffer = BytesIO()
+    buffer.write(json.dumps(metrics, indent=2, ensure_ascii=False).encode())
+    buffer.seek(0)
+
+    client = Minio(
+        endpoint="host.docker.internal:9002",
+        access_key="minioadmin",
+        secret_key="minioadmin",
+        secure=False
+    )
+
+    report_path = f"reports/metrics_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    client.put_object(
+        "ml-models",
+        report_path,
+        data=buffer,
+        length=buffer.getbuffer().nbytes,
+        content_type='application/json'
+    )
+
+    return f"Отчет сохранен: {report_path}"
+
+# Создаем DAG
+with DAG(
+        'sales_forecast_pipeline',  # Уникальное имя DAG
+        default_args=default_args,   # Настройки из предыдущего шага
+        description='Полный пайплайн прогнозирования продаж',
+        schedule_interval='0 6 * * *',  # Каждый день в 6 утра
+        catchup=False,  # Не выполнять пропущенные запуски
+        tags=['sales', 'forecast', 'xgboost'],  # Метки для поиска
+) as dag:
+
+    task_extract = PythonOperator(
+        task_id='extract_data',           # Уникальное имя задачи
+        python_callable=extract_data      # Функция, которую нужно выполнить
+    )
+
+    task_features = PythonOperator(
+        task_id='prepare_features',
+        python_callable=prepare_features
+    )
+
+    task_train = PythonOperator(
+        task_id='train_models',
+        python_callable=train_models
+    )
+
+    task_forecast = PythonOperator(
+        task_id='create_forecast',
+        python_callable=create_forecast
+    )
+
+    task_report = PythonOperator(
+        task_id='save_report',
+        python_callable=save_report
+    )
+
+    task_extract >> task_features >> task_train >> task_forecast >> task_report

@@ -1,0 +1,62 @@
+# Базовый образ с предустановленными DS библиотеками
+FROM jupyter/datascience-notebook:latest
+
+# Переключаемся на root для установки системных пакетов
+USER root
+
+# Устанавливаем необходимые системные пакеты (без Microsoft репозитория)
+RUN apt-get update && \
+    apt-get install -y curl gnupg2 lsb-release unixodbc unixodbc-dev odbcinst && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Временно отключаем проверку SSL для curl
+RUN echo 'insecure' > ~/.curlrc
+
+# Пытаемся скачать ключи Microsoft, игнорируя ошибки SSL
+RUN curl -k -fsSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - || true && \
+    curl -k -fsSL https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list || true
+
+# Удаляем временный .curlrc
+RUN rm -f ~/.curlrc
+
+# Пробуем установить драйвер (если получится)
+RUN apt-get update && \
+    ACCEPT_EULA=Y apt-get install -y msodbcsql18 || echo "ODBC driver installation skipped, will use fallback"
+
+# Возвращаемся к обычному пользователю
+USER ${NB_UID}
+
+# Устанавливаем Python библиотеки через зеркало Tsinghua
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    pyodbc \
+    sqlalchemy \
+    psycopg2-binary \
+    python-dotenv \
+    pandas \
+    numpy \
+    matplotlib \
+    seaborn \
+    scikit-learn \
+    boto3 \
+    botocore \
+    clickhouse-driver \
+    # ========== НОВЫЕ БИБЛИОТЕКИ ДЛЯ ТЕСТОВОГО ЗАДАНИЯ ==========
+    langgraph \
+    langchain-core \
+    langchain-openai \
+    langchain-community \
+    mcp \
+    openai \
+    tiktoken \
+    sqlite-utils \
+    pytest \
+    black \
+    mypy
+
+# Создаем директории для работы
+RUN mkdir -p /home/jovyan/work/scripts /home/jovyan/work/data /home/jovyan/work/notebooks
+
+# ========== НОВАЯ СЕКЦИЯ: создаем структуру для проектов ==========
+RUN mkdir -p /home/jovyan/work/projects/recipe-agent/{src,tests,data,notebooks}
+
+WORKDIR /home/jovyan/work
