@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+data/recipes.db
+*.ipynb_checkpoints/
+.idea/
+.vscode/
