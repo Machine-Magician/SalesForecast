@@ -1,0 +1,22 @@
+{
+  "batch_num": 11,
+  "cluster": 1,
+  "cluster_name": "cluster_1",
+  "product_count": 18,
+  "expected_count": 18,
+  "params": {
+    "n_estimators": 500,
+    "learning_rate": 0.05,
+    "max_depth": 5
+  },
+  "data_stats": {
+    "total_records": 17789,
+    "unique_products": 18,
+    "unique_cities": 69,
+    "total_amount": 344231950.84999996,
+    "date_min": "2025-03-20T13:25:53",
+    "date_max": "2026-03-20T05:17:22"
+  },
+  "enriched_columns": 74,
+  "processed_at": "2026-03-25T12:03:33.304247"
+}

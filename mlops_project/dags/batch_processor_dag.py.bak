@@ -1,0 +1,35 @@
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime, timedelta
+
+from batch_tasks import run_batch  # теперь должно работать
+
+default_args = {
+    'owner': 'data_scientist',
+    'depends_on_past': False,
+    'start_date': datetime(2024, 1, 1),
+    'email_on_failure': False,
+    'email_on_retry': False,
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5),
+}
+
+def run_batch_with_params(**context):
+    dag_run = context.get('dag_run')
+    batch_num = dag_run.conf.get('batch_num', 1) if dag_run and dag_run.conf else 1
+    return run_batch(batch_num)
+
+with DAG(
+        'batch_processor',
+        default_args=default_args,
+        description='Запуск обработки батчей',
+        schedule_interval=None,
+        catchup=False,
+        tags=['batch'],
+) as dag:
+
+    run_task = PythonOperator(
+        task_id='run_batch',
+        python_callable=run_batch_with_params,
+        provide_context=True,
+    )

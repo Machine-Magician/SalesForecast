@@ -1,0 +1,13 @@
+{
+  "batch_num": 1,
+  "cluster": 0,
+  "cluster_name": "regional",
+  "product_count": 7,
+  "total_records": 15432,
+  "total_amount": 416179140.17999995,
+  "unique_cities": 64,
+  "date_range": {
+    "min": "2025-03-16T11:38:50",
+    "max": "2026-03-15T14:34:42"
+  }
+}

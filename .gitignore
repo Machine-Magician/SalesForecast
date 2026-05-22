@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.iml
 .gradle
 /local.properties
@@ -13,3 +14,49 @@
 .externalNativeBuild
 .cxx
 local.properties
+=======
+<<<<<<< HEAD
+# Перейдите в папку проекта (вы уже там)
+cd C:\Users\user0907\SalesForecast
+
+# Инициализируйте новый репозиторий
+git init
+
+# Создайте .gitignore для проекта
+echo "# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# System
+Thumbs.db
+.DS_Store
+" > .gitignore
+
+# Добавьте файлы проекта
+git add .
+git commit -m "Initial commit with SalesForecast project"
+=======
+__pycache__/
+*.pyc
+venv/
+env/
+.vscode/
+.idea/
+.DS_Store
+*.log
+>>>>>>> 8f634325a2a79c21588e57a84887eb2e37497595
+>>>>>>> 029a482ee1a0c62ed3132f4133ead2e7db59315a

@@ -1,0 +1,677 @@
+region,folder,file,status,errors
+armavir,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+armavir,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+armavir,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+armavir,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+armavir,2026-03-29,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+armavir,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+armavir,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+armavir,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+armavir,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+armavir,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+armavir,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+armavir,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+armavir,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+armavir,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+armavir,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+armavir,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+armavir,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+armavir,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+astr,2026-03-28,DMT_Del_Document.txt,ERROR,File is empty
+astr,2026-03-28,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+astr,2026-03-28,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+astr,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+astr,2026-03-29,DMT_Del_Document.txt,ERROR,File is empty
+astr,2026-03-29,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+astr,2026-03-29,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+astr,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+astr,2026-03-30,DMT_Del_Document.txt,ERROR,File is empty
+astr,2026-03-30,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+astr,2026-03-30,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+astr,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+astr,2026-03-31,DMT_Del_Document.txt,ERROR,File is empty
+astr,2026-03-31,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+astr,2026-03-31,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+astr,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+astr,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+astr,2026-04-01,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+astr,2026-04-01,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+astr,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+astr,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+astr,2026-04-02,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+astr,2026-04-02,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+astr,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+belgorod2,2026-03-28,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+belgorod2,2026-03-29,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+belgorod2,2026-03-30,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+belgorod2,2026-03-31,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+belgorod2,2026-04-01,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+belgorod2,2026-04-02,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+boris,2026-03-28,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+boris,2026-03-28,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_BalanceEx.txt,ERROR,File is empty
+boris,2026-03-28,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+boris,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_ObjectsAttribute.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+boris,2026-03-28,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+boris,2026-03-29,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_BalanceEx.txt,ERROR,File is empty
+boris,2026-03-29,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+boris,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_ObjectsAttribute.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+boris,2026-03-29,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+boris,2026-03-30,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_BalanceEx.txt,ERROR,File is empty
+boris,2026-03-30,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+boris,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_ObjectsAttribute.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+boris,2026-03-30,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+boris,2026-03-31,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_BalanceEx.txt,ERROR,File is empty
+boris,2026-03-31,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+boris,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_ObjectsAttribute.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+boris,2026-03-31,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+boris,2026-04-01,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_BalanceEx.txt,ERROR,File is empty
+boris,2026-04-01,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+boris,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_ObjectsAttribute.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+boris,2026-04-01,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+boris,2026-04-02,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_BalanceEx.txt,ERROR,File is empty
+boris,2026-04-02,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+boris,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_ObjectsAttribute.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+boris,2026-04-02,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+bryansk,2026-03-28,DMT_Del_Document.txt,ERROR,File is empty
+bryansk,2026-03-28,DMT_Set_AgentEx.txt,ERROR,File is empty
+bryansk,2026-03-28,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-28,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-28,DMT_Set_DocumentEx.txt,ERROR,"Line 297: 15 cols, expected 14"
+bryansk,2026-03-28,DMT_Set_FirmEx.txt,ERROR,"Line 1: 18 cols, expected 17"
+bryansk,2026-03-28,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 21: 11 cols, expected 12; Line 22: 11 cols, expected 12"
+bryansk,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+bryansk,2026-03-28,DMT_Set_StockEx.txt,ERROR,File is empty
+bryansk,2026-03-29,DMT_Del_Document.txt,ERROR,File is empty
+bryansk,2026-03-29,DMT_Set_AgentEx.txt,ERROR,File is empty
+bryansk,2026-03-29,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-29,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-29,DMT_Set_DocumentEx.txt,ERROR,"Line 269: 15 cols, expected 14"
+bryansk,2026-03-29,DMT_Set_FirmEx.txt,ERROR,"Line 1: 18 cols, expected 17"
+bryansk,2026-03-29,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 21: 11 cols, expected 12; Line 22: 11 cols, expected 12"
+bryansk,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+bryansk,2026-03-29,DMT_Set_StockEx.txt,ERROR,File is empty
+bryansk,2026-03-30,DMT_Del_Document.txt,ERROR,File is empty
+bryansk,2026-03-30,DMT_Set_AgentEx.txt,ERROR,File is empty
+bryansk,2026-03-30,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-30,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-30,DMT_Set_DocumentEx.txt,ERROR,"Line 242: 15 cols, expected 14"
+bryansk,2026-03-30,DMT_Set_FirmEx.txt,ERROR,"Line 1: 18 cols, expected 17"
+bryansk,2026-03-30,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 21: 11 cols, expected 12; Line 22: 11 cols, expected 12"
+bryansk,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+bryansk,2026-03-30,DMT_Set_StockEx.txt,ERROR,File is empty
+bryansk,2026-03-31,DMT_Del_Document.txt,ERROR,File is empty
+bryansk,2026-03-31,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-31,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+bryansk,2026-03-31,DMT_Set_DocumentEx.txt,ERROR,"Line 225: 15 cols, expected 14"
+bryansk,2026-03-31,DMT_Set_FirmEx.txt,ERROR,"Line 1: 18 cols, expected 17"
+bryansk,2026-03-31,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 18: 11 cols, expected 12; Line 19: 11 cols, expected 12"
+bryansk,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+bryansk,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+bryansk,2026-04-01,DMT_Set_AgentEx.txt,ERROR,File is empty
+bryansk,2026-04-01,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+bryansk,2026-04-01,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+bryansk,2026-04-01,DMT_Set_DocumentEx.txt,ERROR,"Line 224: 15 cols, expected 14"
+bryansk,2026-04-01,DMT_Set_FirmEx.txt,ERROR,"Line 1: 18 cols, expected 17"
+bryansk,2026-04-01,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 21: 11 cols, expected 12; Line 22: 11 cols, expected 12"
+bryansk,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+bryansk,2026-04-01,DMT_Set_StockEx.txt,ERROR,File is empty
+bryansk,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+bryansk,2026-04-02,DMT_Set_AgentEx.txt,ERROR,File is empty
+bryansk,2026-04-02,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+bryansk,2026-04-02,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+bryansk,2026-04-02,DMT_Set_DocumentEx.txt,ERROR,"Line 167: 15 cols, expected 14"
+bryansk,2026-04-02,DMT_Set_FirmEx.txt,ERROR,"Line 1: 18 cols, expected 17"
+bryansk,2026-04-02,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 21: 11 cols, expected 12; Line 22: 11 cols, expected 12"
+bryansk,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+bryansk,2026-04-02,DMT_Set_StockEx.txt,ERROR,File is empty
+kostroma,2026-03-28,DMT_Set_PaymentType.txt,ERROR,"Line 1: 7 cols, expected 6"
+kostroma,2026-03-29,DMT_Set_PaymentType.txt,ERROR,"Line 1: 7 cols, expected 6"
+kostroma,2026-03-30,DMT_Set_PaymentType.txt,ERROR,"Line 1: 7 cols, expected 6"
+kostroma,2026-03-31,DMT_Set_PaymentType.txt,ERROR,"Line 1: 7 cols, expected 6"
+kostroma,2026-04-01,DMT_Set_PaymentType.txt,ERROR,"Line 1: 7 cols, expected 6"
+kostroma,2026-04-02,DMT_Set_PaymentType.txt,ERROR,"Line 1: 7 cols, expected 6"
+kursk,2026-03-30,DMT_Confirm_Document.txt,ERROR,"Line 1: 3 cols, expected 2; Line 2: 3 cols, expected 2; Line 3: 3 cols, expected 2"
+kursk,2026-03-30,DMT_Set_AgentPaymentType.txt,ERROR,"Line 1: 4 cols, expected 3; Line 2: 4 cols, expected 3; Line 3: 4 cols, expected 3"
+kursk,2026-03-30,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+kursk,2026-03-30,DMT_set_ItemsEx.txt,ERROR,"Line 1: 13 cols, expected 12; Line 2: 13 cols, expected 12; Line 3: 13 cols, expected 12"
+kursk,2026-03-30,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+kursk,2026-03-30,DMT_Set_PaymentTypeEx.txt,ERROR,"Line 1: 7 cols, expected 6; Line 2: 7 cols, expected 6"
+kursk,2026-03-30,DMT_Set_PriceLists.txt,ERROR,"Line 1: 4 cols, expected 3"
+kursk,2026-03-30,DMT_Set_PricesEx.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+kursk,2026-04-02,DMT_Confirm_Document.txt,ERROR,"Line 1: 3 cols, expected 2; Line 2: 3 cols, expected 2; Line 3: 3 cols, expected 2"
+kursk,2026-04-02,DMT_Set_AgentPaymentType.txt,ERROR,"Line 1: 4 cols, expected 3; Line 2: 4 cols, expected 3; Line 3: 4 cols, expected 3"
+kursk,2026-04-02,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+kursk,2026-04-02,DMT_set_ItemsEx.txt,ERROR,"Line 1: 13 cols, expected 12; Line 2: 13 cols, expected 12; Line 3: 13 cols, expected 12"
+kursk,2026-04-02,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+kursk,2026-04-02,DMT_Set_PaymentTypeEx.txt,ERROR,"Line 1: 7 cols, expected 6; Line 2: 7 cols, expected 6"
+kursk,2026-04-02,DMT_Set_PriceLists.txt,ERROR,"Line 1: 4 cols, expected 3"
+kursk,2026-04-02,DMT_Set_PricesEx.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+kursk3,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+kursk3,2026-03-28,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5; Line 2: 4 cols, expected 5; Line 3: 4 cols, expected 5"
+kursk3,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+kursk3,2026-03-30,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5; Line 2: 4 cols, expected 5; Line 3: 4 cols, expected 5"
+kursk3,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+kursk3,2026-03-31,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5; Line 2: 4 cols, expected 5; Line 3: 4 cols, expected 5"
+kursk3,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+kursk3,2026-04-01,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5; Line 2: 4 cols, expected 5; Line 3: 4 cols, expected 5"
+kursk3,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+kursk3,2026-04-02,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5; Line 2: 4 cols, expected 5; Line 3: 4 cols, expected 5"
+lipetsk,2026-03-28,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-28,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-29,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-29,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-29,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-30,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-30,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-31,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-31,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+lipetsk,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-01,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-01,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-02,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-02,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+lipetsk,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+makeevka,2026-03-28,DMT_Del_Document.txt,ERROR,File is empty
+makeevka,2026-03-28,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+makeevka,2026-03-29,DMT_Del_Document.txt,ERROR,File is empty
+makeevka,2026-03-29,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+makeevka,2026-03-30,DMT_Del_Document.txt,ERROR,File is empty
+makeevka,2026-03-30,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+makeevka,2026-03-31,DMT_Del_Document.txt,ERROR,File is empty
+makeevka,2026-03-31,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+makeevka,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+makeevka,2026-04-01,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+makeevka,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+makeevka,2026-04-02,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-03-28,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv,2026-03-28,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-03-28,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv,2026-03-28,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv,2026-03-28,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv,2026-03-28,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv,2026-03-28,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv,2026-03-28,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv,2026-03-29,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv,2026-03-29,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-03-29,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv,2026-03-29,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv,2026-03-29,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv,2026-03-29,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv,2026-03-29,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv,2026-03-29,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv,2026-03-30,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv,2026-03-30,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-03-30,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv,2026-03-30,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv,2026-03-30,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv,2026-03-30,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv,2026-03-30,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv,2026-03-30,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv,2026-03-31,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv,2026-03-31,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-03-31,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv,2026-03-31,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv,2026-03-31,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv,2026-03-31,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv,2026-03-31,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv,2026-03-31,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv,2026-04-01,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-04-01,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv,2026-04-01,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv,2026-04-01,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv,2026-04-01,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv,2026-04-01,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv,2026-04-01,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv,2026-04-02,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv,2026-04-02,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv,2026-04-02,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv,2026-04-02,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv,2026-04-02,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv,2026-04-02,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv,2026-04-02,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv2,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv2,2026-04-01,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv2,2026-04-01,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv2,2026-04-01,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv2,2026-04-01,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv2,2026-04-01,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv2,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv2,2026-04-01,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv2,2026-04-01,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+novgorodv2,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+novgorodv2,2026-04-02,DMT_Set_AgentEx.txt,ERROR,"Line 1: 7 cols, expected 8; Line 2: 7 cols, expected 8; Line 3: 7 cols, expected 8"
+novgorodv2,2026-04-02,DMT_Set_ClientEx.txt,ERROR,"Line 1: 17 cols, expected 18; Line 2: 17 cols, expected 18; Line 3: 17 cols, expected 18"
+novgorodv2,2026-04-02,DMT_Set_DocItemEx.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+novgorodv2,2026-04-02,DMT_Set_DocumentEx.txt,ERROR,"Line 1: 13 cols, expected 14; Line 2: 13 cols, expected 14; Line 3: 13 cols, expected 14"
+novgorodv2,2026-04-02,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17"
+novgorodv2,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+novgorodv2,2026-04-02,DMT_Set_StockEx.txt,ERROR,"Line 1: 5 cols, expected 4; Line 2: 5 cols, expected 4; Line 3: 5 cols, expected 4"
+novgorodv2,2026-04-02,DMT_Set_StoreEx.txt,ERROR,"Line 1: 4 cols, expected 5"
+orel2,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+orel2,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+orel2,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+orel2,2026-03-28,DMT_Set_StockEx.txt,ERROR,File is empty
+orel2,2026-03-28,DMT_Set_StoreEx.txt,ERROR,File is empty
+orel2,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+orel2,2026-03-29,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+orel2,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+orel2,2026-03-29,DMT_Set_StockEx.txt,ERROR,File is empty
+orel2,2026-03-29,DMT_Set_StoreEx.txt,ERROR,File is empty
+orel2,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+orel2,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+orel2,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+orel2,2026-03-30,DMT_Set_StockEx.txt,ERROR,File is empty
+orel2,2026-03-30,DMT_Set_StoreEx.txt,ERROR,File is empty
+orel2,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+orel2,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+orel2,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+orel2,2026-03-31,DMT_Set_StockEx.txt,ERROR,File is empty
+orel2,2026-03-31,DMT_Set_StoreEx.txt,ERROR,File is empty
+orel2,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+orel2,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+orel2,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+orel2,2026-04-01,DMT_Set_StockEx.txt,ERROR,File is empty
+orel2,2026-04-01,DMT_Set_StoreEx.txt,ERROR,File is empty
+orel2,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+orel2,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+orel2,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+orel2,2026-04-02,DMT_Set_StockEx.txt,ERROR,File is empty
+orel2,2026-04-02,DMT_Set_StoreEx.txt,ERROR,File is empty
+penza,2026-03-28,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+penza,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+penza,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+penza,2026-03-30,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+penza,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+penza,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+penza,2026-03-31,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+penza,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+penza,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+penza,2026-04-01,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+penza,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+penza,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+penza,2026-04-02,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+penza,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+penza,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+rostov2,2026-03-28,DMT_Confirm_Document.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Del_Document.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_AgentEx.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_ClientEx.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_DocItemEx.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_DocumentEx.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+rostov2,2026-03-28,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+rostov2,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov2,2026-03-28,DMT_Set_StockEx.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Confirm_Document.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Del_Document.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_AgentEx.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_ClientEx.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_DocItemEx.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_DocumentEx.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+rostov2,2026-03-29,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+rostov2,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov2,2026-03-29,DMT_Set_StockEx.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Confirm_Document.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Del_Document.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_AgentEx.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_ClientEx.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_DocItemEx.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_DocumentEx.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+rostov2,2026-03-30,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+rostov2,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov2,2026-03-30,DMT_Set_StockEx.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Confirm_Document.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Del_Document.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_AgentEx.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_ClientEx.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_DocItemEx.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_DocumentEx.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+rostov2,2026-03-31,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+rostov2,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov2,2026-03-31,DMT_Set_StockEx.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Confirm_Document.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_AgentEx.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_ClientEx.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_DocItemEx.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_DocumentEx.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+rostov2,2026-04-01,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+rostov2,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov2,2026-04-01,DMT_Set_StockEx.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Confirm_Document.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_AgentEx.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_ClientEx.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_DocItemEx.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_DocumentEx.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+rostov2,2026-04-02,DMT_Set_FirmEx.txt,ERROR,"Line 1: 16 cols, expected 17; Line 2: 16 cols, expected 17; Line 3: 16 cols, expected 17"
+rostov2,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov2,2026-04-02,DMT_Set_StockEx.txt,ERROR,File is empty
+rostov3,2026-03-28,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov3,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov3,2026-03-28,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov3,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov3,2026-03-29,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov3,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov3,2026-03-30,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov3,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov3,2026-03-31,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov3,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov3,2026-04-01,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov3,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov3,2026-04-02,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov4,2026-03-28,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov4,2026-03-28,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov4,2026-03-29,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov4,2026-03-29,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov4,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov4,2026-03-30,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov4,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov4,2026-03-31,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov4,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov4,2026-04-01,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_Agent.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_Firm.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_Items.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_ItemUnit.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_PaymentType.txt,ERROR,"Line 1: 5 cols, expected 6; Line 2: 5 cols, expected 6; Line 3: 5 cols, expected 6"
+rostov4,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_Stock.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_Store.txt,UNKNOWN,No mapping found
+rostov4,2026-04-02,DMT_Set_Unit.txt,UNKNOWN,No mapping found
+Shakty2,2026-03-28,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+Shakty2,2026-03-28,DMT_Set_ClientEx.txt,ERROR,"Line 1: 19 cols, expected 18; Line 2: 19 cols, expected 18; Line 3: 19 cols, expected 18"
+Shakty2,2026-03-28,DMT_set_ItemTypes.txt,ERROR,"Line 1: 5 cols, expected 4"
+Shakty2,2026-03-28,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+Shakty2,2026-03-29,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+Shakty2,2026-03-29,DMT_Set_ClientEx.txt,ERROR,"Line 1: 19 cols, expected 18; Line 2: 19 cols, expected 18; Line 3: 19 cols, expected 18"
+Shakty2,2026-03-29,DMT_set_ItemTypes.txt,ERROR,"Line 1: 5 cols, expected 4"
+Shakty2,2026-03-29,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+Shakty2,2026-03-30,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+Shakty2,2026-03-30,DMT_Set_ClientEx.txt,ERROR,"Line 1: 19 cols, expected 18; Line 2: 19 cols, expected 18; Line 3: 19 cols, expected 18"
+Shakty2,2026-03-30,DMT_set_ItemTypes.txt,ERROR,"Line 1: 5 cols, expected 4"
+Shakty2,2026-03-30,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+Shakty2,2026-03-31,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+Shakty2,2026-03-31,DMT_Set_ClientEx.txt,ERROR,"Line 1: 19 cols, expected 18; Line 2: 19 cols, expected 18; Line 3: 19 cols, expected 18"
+Shakty2,2026-03-31,DMT_set_ItemTypes.txt,ERROR,"Line 1: 5 cols, expected 4"
+Shakty2,2026-03-31,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+Shakty2,2026-04-01,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+Shakty2,2026-04-01,DMT_Set_ClientEx.txt,ERROR,"Line 1: 19 cols, expected 18; Line 2: 19 cols, expected 18; Line 3: 19 cols, expected 18"
+Shakty2,2026-04-01,DMT_set_ItemTypes.txt,ERROR,"Line 1: 5 cols, expected 4"
+Shakty2,2026-04-01,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+Shakty2,2026-04-02,DMT_Get_DocitemsEx.txt,UNKNOWN,No mapping found
+Shakty2,2026-04-02,DMT_Set_ClientEx.txt,ERROR,"Line 1: 19 cols, expected 18; Line 2: 19 cols, expected 18; Line 3: 19 cols, expected 18"
+Shakty2,2026-04-02,DMT_set_ItemTypes.txt,ERROR,"Line 1: 5 cols, expected 4"
+Shakty2,2026-04-02,DMT_Set_MobFaces.txt,ERROR,"Line 1: 6 cols, expected 5; Line 2: 6 cols, expected 5; Line 3: 6 cols, expected 5"
+Tambov,2026-03-28,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-28,DMT_Set_ClientEx.txt,ERROR,"Line 1: 16 cols, expected 18; Line 2: 16 cols, expected 18; Line 3: 16 cols, expected 18"
+Tambov,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+Tambov,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-29,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-29,DMT_Set_ClientEx.txt,ERROR,"Line 1: 16 cols, expected 18; Line 2: 16 cols, expected 18; Line 3: 16 cols, expected 18"
+Tambov,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+Tambov,2026-03-29,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-30,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-30,DMT_Set_ClientEx.txt,ERROR,"Line 1: 16 cols, expected 18; Line 2: 16 cols, expected 18; Line 3: 16 cols, expected 18"
+Tambov,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+Tambov,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-31,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-03-31,DMT_Set_ClientEx.txt,ERROR,"Line 1: 16 cols, expected 18; Line 2: 16 cols, expected 18; Line 3: 16 cols, expected 18"
+Tambov,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+Tambov,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-04-01,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-04-01,DMT_Set_ClientEx.txt,ERROR,"Line 1: 16 cols, expected 18; Line 2: 16 cols, expected 18; Line 3: 16 cols, expected 18"
+Tambov,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+Tambov,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-04-02,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+Tambov,2026-04-02,DMT_Set_ClientEx.txt,ERROR,"Line 1: 16 cols, expected 18; Line 2: 16 cols, expected 18; Line 3: 16 cols, expected 18"
+Tambov,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+Tambov,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+volgograd,2026-03-30,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+volgograd,2026-03-30,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+volgograd,2026-03-30,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 2: 11 cols, expected 12; Line 3: 11 cols, expected 12"
+volgograd,2026-03-31,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+volgograd,2026-03-31,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+volgograd,2026-03-31,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 2: 11 cols, expected 12; Line 3: 11 cols, expected 12"
+volgograd,2026-04-01,DMT_Get_DocItemsEx.txt,UNKNOWN,No mapping found
+volgograd,2026-04-01,DMT_Set_DocumentStatusEx.txt,UNKNOWN,No mapping found
+volgograd,2026-04-01,DMT_set_ItemsEx.txt,ERROR,"Line 1: 11 cols, expected 12; Line 2: 11 cols, expected 12; Line 3: 11 cols, expected 12"
+voronezh2,2026-03-30,DMT_Del_Document.txt,ERROR,File is empty
+voronezh2,2026-03-30,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+voronezh2,2026-03-30,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_BalanceEx.txt,ERROR,File is empty
+voronezh2,2026-03-30,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+voronezh2,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_MobFaces.txt,ERROR,File is empty
+voronezh2,2026-03-30,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-30,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Del_Document.txt,ERROR,File is empty
+voronezh2,2026-03-31,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+voronezh2,2026-03-31,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_BalanceEx.txt,ERROR,File is empty
+voronezh2,2026-03-31,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+voronezh2,2026-03-31,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_MobFaces.txt,ERROR,File is empty
+voronezh2,2026-03-31,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+voronezh2,2026-03-31,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Del_Document.txt,ERROR,File is empty
+voronezh2,2026-04-01,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+voronezh2,2026-04-01,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_BalanceEx.txt,ERROR,File is empty
+voronezh2,2026-04-01,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+voronezh2,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_MobFaces.txt,ERROR,File is empty
+voronezh2,2026-04-01,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-01,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Del_Document.txt,ERROR,File is empty
+voronezh2,2026-04-02,DMT_Set_AgentOwnFirm.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_AgentPaymentType.txt,ERROR,File is empty
+voronezh2,2026-04-02,DMT_Set_BalanceDocumentEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_BalanceEx.txt,ERROR,File is empty
+voronezh2,2026-04-02,DMT_Set_DocAttributeEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_DocumentDebtEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_FacesPriceList.txt,ERROR,File is empty
+voronezh2,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_MobFaces.txt,ERROR,File is empty
+voronezh2,2026-04-02,DMT_Set_Prices.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_SalesRules.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_SalesRules_Conditions.txt,UNKNOWN,No mapping found
+voronezh2,2026-04-02,DMT_Set_SalesRules_Objects.txt,UNKNOWN,No mapping found
+zernograd,2026-03-28,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+zernograd,2026-03-28,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+zernograd,2026-03-29,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+zernograd,2026-03-29,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+zernograd,2026-03-30,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+zernograd,2026-03-30,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+zernograd,2026-04-01,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+zernograd,2026-04-01,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found
+zernograd,2026-04-02,DMT_Set_ItemGroups.txt,UNKNOWN,No mapping found
+zernograd,2026-04-02,DMT_Set_ItemsEx.txt,UNKNOWN,No mapping found

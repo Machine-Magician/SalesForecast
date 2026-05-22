@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://fedstat.ru/
+HostUrl=https://fedstat.ru/indicator/data.do?format=excel

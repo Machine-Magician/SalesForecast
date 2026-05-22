@@ -1,0 +1,26 @@
+services:
+  platform-core:
+    build: .
+    container_name: platform-core-dev
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./core:/app/core
+      - ./.env:/app/.env
+      - ./data:/app/data
+      - ./web:/app/web
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  bot:
+    build:
+      context: .
+      dockerfile: bot/Dockerfile
+    container_name: platform-bot
+    volumes:
+      - ./bot:/app/bot
+      - ./.env:/app/.env
+    depends_on:
+      - platform-core
+    restart: unless-stopped
