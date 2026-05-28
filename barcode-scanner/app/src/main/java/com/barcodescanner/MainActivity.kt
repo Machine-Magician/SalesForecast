@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity() {
             preview.setSurfaceProvider(previewView.surfaceProvider)
 
             val imageAnalysis = ImageAnalysis.Builder()
+                .setTargetResolution(android.util.Size(1920, 1080))
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
 
@@ -159,7 +160,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in 0 until 8400) {
             val conf = raw[4][i]
-            if (conf < 0.25f) continue
+            if (conf < 0.4f) continue
             detections++
 
             val x_center = raw[0][i]
@@ -266,23 +267,50 @@ class MainActivity : AppCompatActivity() {
 
     private fun tryReadWithZxing(bitmap: Bitmap): String? {
         return try {
-            val width = bitmap.width
-            val height = bitmap.height
+            // 1. Усиление контраста (аналог CLAHE)
+            val contrast = 1.8f
+            val cm = android.graphics.ColorMatrix(floatArrayOf(
+                contrast, 0f, 0f, 0f, 128 * (1 - contrast),
+                0f, contrast, 0f, 0f, 128 * (1 - contrast),
+                0f, 0f, contrast, 0f, 128 * (1 - contrast),
+                0f, 0f, 0f, 1f, 0f
+            ))
+            val paint = android.graphics.Paint()
+            paint.colorFilter = android.graphics.ColorMatrixColorFilter(cm)
+            val enhanced = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+            val canvas = android.graphics.Canvas(enhanced)
+            canvas.drawBitmap(bitmap, 0f, 0f, paint)
+
+            // 2. Бинаризация с адаптивным порогом
+            val width = enhanced.width
+            val height = enhanced.height
             val pixels = IntArray(width * height)
-            bitmap.getPixels(pixels, 0, width, 0, 0, width, height)
+            enhanced.getPixels(pixels, 0, width, 0, 0, width, height)
+
+            var sum = 0
+            for (p in pixels) {
+                val gray = ((p shr 16 and 0xFF) * 0.299 + (p shr 8 and 0xFF) * 0.587 + (p and 0xFF) * 0.114).toInt()
+                sum += gray
+            }
+            val threshold = (sum / pixels.size * 0.85).toInt()
+
             val binaryPixels = IntArray(width * height)
             for (i in pixels.indices) {
-                val r = (pixels[i] shr 16) and 0xFF
-                val g = (pixels[i] shr 8) and 0xFF
-                val b = pixels[i] and 0xFF
-                val gray = (0.299 * r + 0.587 * g + 0.114 * b).toInt()
-                binaryPixels[i] = if (gray < 128) 0xFF000000.toInt() else 0xFFFFFFFF.toInt()
+                val gray = ((pixels[i] shr 16 and 0xFF) * 0.299 + (pixels[i] shr 8 and 0xFF) * 0.587 + (pixels[i] and 0xFF) * 0.114).toInt()
+                binaryPixels[i] = if (gray < threshold) 0xFF000000.toInt() else 0xFFFFFFFF.toInt()
             }
+
             val source = RGBLuminanceSource(width, height, binaryPixels)
             val binarizer = GlobalHistogramBinarizer(source)
             val binaryBitmap = BinaryBitmap(binarizer)
-            val reader = MultiFormatReader()
-            reader.decode(binaryBitmap).text
+            val result = MultiFormatReader().decode(binaryBitmap)
+            val text = result.text
+            // Проверяем, что это похоже на штрихкод (только цифры, 8-14 символов)
+            if (text.matches(Regex("^[0-9]{12,14}$"))) {
+                text
+            } else {
+                null
+            }
         } catch (e: Exception) {
             null
         }
