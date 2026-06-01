@@ -1,6 +1,0 @@
-*.tar
-*.zip
-data/
-__pycache__/
-*.pyc
-

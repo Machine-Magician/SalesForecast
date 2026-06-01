@@ -2,7 +2,7 @@
 // НАСТРОЙКИ
 // ═══════════════════════════════
 
-const API_URL = 'http://localhost:8001';
+const API_URL = '';  // На сервере API доступен по тому же домену
 let currentUser = null;
 let currentOrderForReview = null;
 let currentRating = 0;
@@ -153,6 +153,29 @@ function goToMenu() {
     }
 }
 
+async function showInfo() {
+    const data = await api('GET', '/info/legal');
+    if (!data) return;
+
+    const container = document.getElementById('orders-list');
+    container.innerHTML = `
+        <div class="card">
+            <p><b>${data.title}</b></p>
+            <p><b>Компания:</b> ${data.company.name}</p>
+            <p><b>ИНН:</b> ${data.company.inn}</p>
+            <p><b>ОГРНИП:</b> ${data.company.ogrnip}</p>
+            <p><b>Адрес:</b> ${data.company.address}</p>
+            <hr>
+            <p>${data.payment_info.description}</p>
+            <p>${data.payment_info.min_price}</p>
+            <p>${data.payment_info.refund_policy}</p>
+            <hr>
+            <p><b>Комиссия платформы:</b> 2.4% (итоговая комиссия с учётом эквайринга — не более 5%)</p>
+            <p>${data.checks}</p>
+        </div>
+    `;
+    goTo('screen-orders');
+}
 
 // ═══════════════════════════════
 // РЕГИСТРАЦИЯ
@@ -218,7 +241,22 @@ async function submitRegister() {
 // СОЗДАНИЕ ЗАКАЗА
 // ═══════════════════════════════
 
-function showCreateOrder() { goTo('screen-create-order'); }
+async function createOrder() {
+    const description = document.getElementById('order-description').value.trim();
+    const amount = parseFloat(document.getElementById('order-amount').value);
+    if (!description || !amount || amount <= 0) {
+        showToast('Введите описание и сумму', 'error'); return;
+    }
+
+    const orderData = await api('POST', '/orders/create', {
+        customer_id: currentUser.user_id,
+        description, amount
+    });
+    if (!orderData || !orderData.order_id) return;
+
+    // Показываем форму оплаты
+    showPayWidget(orderData.order_id, amount, description);
+}
 
 async function createOrder() {
     const description = document.getElementById('order-description').value.trim();
@@ -233,14 +271,92 @@ async function createOrder() {
     });
     if (!orderData || !orderData.order_id) return;
 
-    const payData = await api('POST', `/orders/${orderData.order_id}/pay`);
-    if (payData && payData.success) {
-        showToast(`Заказ создан! Предоплата внесена. ID: ${orderData.order_id}`, 'success');
-        sendNotification('Новый заказ', `Создан заказ на ${amount} ₽: ${description}`, orderData.order_id);
-        goTo('screen-customer-menu');
+    // Показываем форму прямой оплаты
+    showPayWidget(orderData.order_id, amount, description);
+}
+
+function showPayWidget(orderId, amount, description) {
+    const container = document.getElementById('orders-list');
+    container.innerHTML = `
+        <div class="card">
+            <p><b>Заказ:</b> ${orderId}</p>
+            <p><b>Сумма:</b> ${amount} ₽</p>
+            <p><b>Описание:</b> ${description}</p>
+            <p style="color:#8b6b4b;font-size:0.85rem;">Тестовый режим — оплата без реальной карты</p>
+            <button class="btn btn-primary" onclick="confirmTestPayment('${orderId}', ${amount}, '${description}')">✅ Подтвердить предоплату</button>
+            <button class="btn btn-link" onclick="goBack()">← Отмена</button>
+        </div>
+    `;
+    goTo('screen-orders');
+}
+
+async function confirmTestPayment(orderId, amount, description) {
+    const result = await api('POST', `/orders/${orderId}/confirm-payment`, null, {
+        transaction_id: 'test_' + Date.now()
+    });
+    if (result && result.success) {
+        showToast(`Предоплата внесена! ID: ${orderId}`, 'success');
+        sendNotification('Новый заказ', `Создан заказ на ${amount} ₽: ${description}`, orderId);
+        setTimeout(() => goBack(), 500);
+    } else {
+        showToast('Ошибка', 'error');
     }
 }
 
+async function showMyOrders(filter = 'all') {
+    currentView = 'my';
+    const data = await api('GET', '/orders', null, { limit: 200, filter });
+    const allOrders = data?.orders || [];
+    const myOrders = currentUser.role === 'customer'
+        ? allOrders.filter(o => o.customer_id === currentUser.user_id)
+        : allOrders.filter(o => o.executor_id === currentUser.user_id);
+
+    const container = document.getElementById('orders-list');
+    if (!myOrders.length) {
+        container.innerHTML = '<p class="empty">У вас пока нет заказов</p>';
+    } else {
+        const statusMap = {
+            'created': '🆕 Создан', 'hold': '💳 Предоплата', 'in_progress': '🔧 В работе',
+            'ready': '👀 Готово', 'back_to_work': '🔁 Доработка',
+            'completed': '✅ Завершён', 'cancelled': '❌ Отменён'
+        };
+        container.innerHTML = myOrders.map(order => {
+            const status = statusMap[order.status] || order.status;
+            let actions = '';
+            if (order.status === 'in_progress' && currentUser.role === 'executor') {
+                actions = `<button class="btn btn-secondary btn-sm" onclick="markReady('${order.order_id}')">✅ Я выполнил</button>`;
+            }
+            if (order.status === 'ready' && currentUser.role === 'customer') {
+                actions = `<button class="btn btn-primary btn-sm" onclick="markComplete('${order.order_id}')">💰 Подтвердить</button>
+                           <button class="btn btn-link btn-sm" style="color:#cd7f32;" onclick="reworkOrder('${order.order_id}')">🔁 На доработку</button>`;
+            }
+            if (order.status === 'back_to_work' && currentUser.role === 'executor') {
+                actions = `<button class="btn btn-secondary btn-sm" onclick="markReady('${order.order_id}')">✅ Я исправил</button>`;
+            }
+            if (order.status === 'completed' && currentUser.role === 'customer' && !order.has_review) {
+                actions = `<button class="btn btn-outline btn-sm" onclick="showReview('${order.order_id}')">⭐ Оценить</button>`;
+            }
+            if (order.status !== 'created') {
+                actions += `<button class="btn btn-outline btn-sm" onclick="openChat('${order.order_id}')">💬 Чат</button>`;
+            }
+            if ((order.status === 'hold' || order.status === 'in_progress' || order.status === 'ready') && currentUser.role === 'customer') {
+                actions += `<button class="btn btn-link btn-sm" style="color:#8b0000;" onclick="cancelOrder('${order.order_id}')">❌ Отменить</button>`;
+            }
+            return `<div class="card">
+                <div class="card-header">${order.order_id} <span class="status">${status}</span></div>
+                <div class="card-body"><p>${order.description}</p><p class="amount">${order.amount} ₽</p></div>
+                ${actions ? `<div class="card-actions">${actions}</div>` : ''}
+            </div>`;
+        }).join('');
+    }
+    goTo('screen-orders');
+}
+
+
+
+function showCreateOrder() {
+    goTo('screen-create-order');
+}
 
 // ═══════════════════════════════
 // ДОСТУПНЫЕ ЗАКАЗЫ
@@ -281,67 +397,9 @@ async function acceptOrder(orderId) {
 // МОИ ЗАКАЗЫ
 // ═══════════════════════════════
 
-async function showMyOrders(filter = 'all') {
-    currentView = 'my';
-    const data = await api('GET', '/orders', null, { limit: 200, filter });
-    const allOrders = data?.orders || [];
-    const myOrders = currentUser.role === 'customer'
-        ? allOrders.filter(o => o.customer_id === currentUser.user_id)
-        : allOrders.filter(o => o.executor_id === currentUser.user_id);
 
-    const container = document.getElementById('orders-list');
-    if (!myOrders.length) {
-        container.innerHTML = '<p class="empty">У вас пока нет заказов</p>';
-    } else {
-        const statusMap = {
-            'created': '🆕 Создан',
-            'hold': '💳 Предоплата',
-            'in_progress': '🔧 В работе',
-            'ready': '👀 Готово',
-            'back_to_work': '🔁 Доработка',     // ← новый
-            'completed': '✅ Завершён',
-            'cancelled': '❌ Отменён'
-        };
-        container.innerHTML = myOrders.map(order => {
-            const status = statusMap[order.status] || order.status;
-            let actions = '';
-            if (order.status === 'in_progress') {
-                if (currentUser.role === 'executor') {
-                    // Исполнитель видит кнопку "Я выполнил"
-                    actions = `<button class="btn btn-secondary btn-sm" onclick="markReady('${order.order_id}')">✅ Я выполнил</button>`;
-                }
-                // Заказчик в статусе in_progress не видит кнопки "Подтвердить" — ждёт готовности
-            }
-            if (order.status === 'completed' && currentUser.role === 'customer' && !order.has_review) {
-                actions = `<button class="btn btn-outline btn-sm" onclick="showReview('${order.order_id}')">⭐ Оценить</button>`;
-            }
-            if (order.status === 'ready' && currentUser.role === 'customer') {
-                actions += `<button class="btn btn-primary btn-sm" onclick="markComplete('${order.order_id}')">💰 Подтвердить</button>`;
-                actions += `<button class="btn btn-link btn-sm" style="color:#cd7f32;"
-                            onclick="reworkOrder('${order.order_id}')">🔁 Вернуть на доработку</button>`;
-            }
-            // Чат доступен всегда (кроме созданных)
-            if (order.status !== 'created') {
-                actions += `<button class="btn btn-outline btn-sm" onclick="openChat('${order.order_id}')">💬 Чат</button>`;
-            }
-            if ((order.status === 'hold' || order.status === 'in_progress' || order.status === 'ready')
-                && currentUser.role === 'customer') {
-                actions += `<button class="btn btn-link btn-sm" style="color:#8b0000;"
-                            onclick="cancelOrder('${order.order_id}')">❌ Отменить</button>`;
-            }
-            if (order.status === 'back_to_work' && currentUser.role === 'executor') {
-                actions += `<button class="btn btn-secondary btn-sm" onclick="markReady('${order.order_id}')">✅ Я исправил</button>`;
-            }
 
-            return `<div class="card">
-                <div class="card-header">${order.order_id} <span class="status">${status}</span></div>
-                <div class="card-body"><p>${order.description}</p><p class="amount">${order.amount} ₽</p></div>
-                ${actions ? `<div class="card-actions">${actions}</div>` : ''}
-            </div>`;
-        }).join('');
-    }
-    goTo('screen-orders');
-}
+
 
 
 // ═══════════════════════════════
@@ -658,6 +716,14 @@ function clearNotifications() {
     showToast('Уведомления очищены', 'info');
 }
 
+
+
+
+
+
+
+
+
 // ═══════════════════════════════
 // ЗАПУСК
 // ═══════════════════════════════
@@ -675,4 +741,18 @@ function clearNotifications() {
     // Показываем главный экран
     const roleScreen = document.getElementById('screen-role');
     if (roleScreen) { roleScreen.style.display = 'flex'; roleScreen.classList.add('active'); }
+
+    // Проверяем, вернулся ли пользователь после оплаты
+    const urlParams = new URLSearchParams(window.location.search);
+    const paidOrderId = urlParams.get('paid');
+    if (paidOrderId) {
+        api('POST', `/orders/${paidOrderId}/confirm-payment`, null, {
+            transaction_id: 'cp_' + Date.now()
+        }).then(result => {
+            if (result && result.success) {
+                showToast('Оплата прошла! Заказ ' + paidOrderId, 'success');
+            }
+        });
+        window.history.replaceState({}, document.title, '/app');
+    }
 })();

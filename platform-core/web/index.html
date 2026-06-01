@@ -7,18 +7,21 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>Платформа</title>
     <link rel="stylesheet" href="/static/style.css">
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.legacy.js"></script>
 </head>
+
 <body>
     <div id="app">
         <!-- Заголовок -->
         <div class="header">
-            <h1>🛠️ Серп и Молот</h1>
+            <h1>🛠️ Партнёр</h1>
         </div>
         <div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;">
             <button id="btn-notif-toggle" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#8b6b4b;"
                     onclick="toggleNotifications()" title="Вкл/выкл уведомления">🔕</button>
             <button id="btn-notif-list" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#cd7f32;"
                     onclick="showNotifications()" title="Список уведомлений">🔔</button>
+            <button class="btn btn-link" onclick="showInfo()">ℹ️ Информация</button>
         </div>
 
         <!-- Экран: выбор роли -->

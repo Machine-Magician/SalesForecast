@@ -2,6 +2,7 @@ import uuid
 import logging
 import hashlib
 import secrets
+import httpx
 
 from datetime import datetime
 from typing import List
@@ -23,7 +24,8 @@ from core.models import (
     MessageSendRequest, MessageResponse,
     PaymentResult
 )
-from core.mock_gateway import MockCloudPaymentsGateway
+#from core.mock_gateway import get_gateway
+from core.payment_gateway import get_gateway
 
 # ═══════════════════════════════
 # ЛОГИРОВАНИЕ
@@ -51,14 +53,15 @@ async def web_app():
     """Главная страница веб-приложения."""
     return FileResponse("web/index.html")
 
-gateway = MockCloudPaymentsGateway()
-
+gateway = get_gateway()
+#gateway = MockCloudPaymentsGateway()
 
 @app.on_event("startup")
 async def startup():
     await init_db()
     logger.info("База данных инициализирована")
-    logger.info(f"Шлюз: MOCK (тестовый режим)")
+    logger.info(f"Шлюз: {settings.GATEWAY}")
+    #logger.info(f"Шлюз: MOCK (тестовый режим)")
 
 
 @app.get("/")
@@ -231,7 +234,7 @@ async def get_user_stats(user_id: str, db: AsyncSession = Depends(get_db)):
 @app.post("/orders/create", response_model=OrderResponse)
 async def create_order(req: OrderCreateRequest, db: AsyncSession = Depends(get_db)):
     order_id = f"ORD-{uuid.uuid4().hex[:8].upper()}"
-    commission = round(req.amount * 0.10, 2)
+    commission = round(req.amount * 0.024, 2)
 
     logger.info(f"Новый заказ: {order_id}, сумма: {req.amount}, комиссия: {commission}")
 
@@ -286,33 +289,34 @@ async def pay_order(order_id: str, db: AsyncSession = Depends(get_db)):
     return payment_result
 
 
-@app.post("/orders/{order_id}/accept", response_model=OrderResponse)
-async def accept_order(order_id: str, executor_id: str, db: AsyncSession = Depends(get_db)):
+@app.post("/orders/{order_id}/pay", response_model=PaymentResult)
+async def pay_order(order_id: str, db: AsyncSession = Depends(get_db)):
+    """Оплата заказа (холдирование)."""
     result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
     order = result.scalar_one_or_none()
 
     if not order:
         raise HTTPException(status_code=404, detail="Заказ не найден")
-    if order.status != "hold":
-        raise HTTPException(status_code=400, detail="Заказ нельзя принять")
+    if order.status != "created":
+        raise HTTPException(status_code=400, detail="Заказ уже оплачен или отменён")
 
-    order.executor_id = executor_id
-    order.status = "in_progress"
-    await db.commit()
-
-    logger.info(f"Заказ {order_id} принят исполнителем {executor_id}")
-
-    return OrderResponse(
-        order_id=order.order_id,
-        customer_id=order.customer_id,
-        executor_id=order.executor_id,
-        description=order.description,
+    # Пробуем холдирование с криптограммой (если передана)
+    payment_result = await gateway.auth(
         amount=order.amount,
-        commission=order.commission,
-        status=order.status,
-        transaction_id=order.transaction_id,
-        created_at=order.created_at
+        currency="RUB",
+        invoice_id=order_id,
+        description=order.description
     )
+
+    if payment_result.success:
+        order.status = "hold"
+        order.transaction_id = payment_result.transaction_id
+        await db.commit()
+        logger.info(f"Холд: {order_id}, транзакция: {payment_result.transaction_id}")
+    else:
+        logger.error(f"Ошибка холда: {order_id}, {payment_result.message}")
+
+    return payment_result
 
 
 @app.post("/orders/{order_id}/ready")
@@ -379,6 +383,22 @@ async def cancel_order(order_id: str, db: AsyncSession = Depends(get_db)):
 
     return payment_result
 
+@app.post("/orders/{order_id}/confirm-payment")
+async def confirm_payment(order_id: str, transaction_id: str, db: AsyncSession = Depends(get_db)):
+    """Подтвердить, что виджет CloudPayments успешно провёл платёж."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+
+    order.status = "hold"
+    order.transaction_id = transaction_id
+    await db.commit()
+
+    logger.info(f"Платёж подтверждён: {order_id}, транзакция: {transaction_id}")
+
+    return {"success": True, "order_id": order_id, "status": order.status}
 
 @app.get("/orders/{order_id}", response_model=OrderResponse)
 async def get_order(order_id: str, db: AsyncSession = Depends(get_db)):
@@ -551,6 +571,166 @@ async def get_reviews(executor_id: str, skip: int = 0, limit: int = 20, db: Asyn
         ]
     }
 
+@app.post("/orders/{order_id}/pay-direct", response_model=PaymentResult)
+async def pay_direct(order_id: str, req: dict, db: AsyncSession = Depends(get_db)):
+    """Прямая оплата картой (для тестового режима)."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+
+    card_number = req.get("card_number", "")
+    card_exp = req.get("card_exp", "")
+    card_cvv = req.get("card_cvv", "")
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(
+                "https://api.cloudpayments.ru/payments/cards/charge",
+                json={
+                    "Amount": order.amount,
+                    "Currency": "RUB",
+                    "IpAddress": "127.0.0.1",
+                    "Name": "CARDHOLDER",
+                    "CardNumber": card_number,
+                    "CardExpDate": card_exp,
+                    "CardCvv": card_cvv,
+                    "PublicId": settings.CP_PUBLIC_ID,
+                    "InvoiceId": order_id,
+                    "Description": order.description
+                },
+                auth=(settings.CP_PUBLIC_ID, settings.CP_API_SECRET)
+            )
+            data = response.json()
+
+            if data.get("Success"):
+                order.status = "hold"
+                order.transaction_id = str(data.get("Model", {}).get("TransactionId", ""))
+                await db.commit()
+                logger.info(f"Платёж прошёл: {order_id}, транзакция: {order.transaction_id}")
+                return PaymentResult(
+                    success=True,
+                    transaction_id=order.transaction_id,
+                    message="Оплата прошла успешно"
+                )
+            else:
+                return PaymentResult(
+                    success=False,
+                    message=data.get("Message", "Ошибка оплаты")
+                )
+        except Exception as e:
+            logger.error(f"Ошибка запроса к CloudPayments: {e}")
+            return PaymentResult(success=False, message=str(e))
+
+@app.post("/orders/{order_id}/pay-with-cryptogram", response_model=PaymentResult)
+async def pay_with_cryptogram(order_id: str, req: dict, db: AsyncSession = Depends(get_db)):
+    """Оплата с криптограммой от виджета."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+
+    cryptogram = req.get("card_cryptogram", "")
+    transaction_id = req.get("transaction_id", "")
+
+    async with httpx.AsyncClient() as client:
+        try:
+            # Платёж через API CloudPayments с криптограммой
+            response = await client.post(
+                "https://api.cloudpayments.ru/payments/cards/auth",
+                json={
+                    "Amount": order.amount,
+                    "Currency": "RUB",
+                    "IpAddress": "127.0.0.1",
+                    "Name": "CARDHOLDER",
+                    "CardCryptogramPacket": cryptogram,
+                    "InvoiceId": order_id,
+                    "Description": order.description
+                },
+                auth=(settings.CP_PUBLIC_ID, settings.CP_API_SECRET)
+            )
+            data = response.json()
+
+            if data.get("Success"):
+                # Холд успешен — подтверждаем (capture)
+                txn_id = str(data.get("Model", {}).get("TransactionId", transaction_id))
+                capture_resp = await client.post(
+                    "https://api.cloudpayments.ru/payments/confirm",
+                    json={"TransactionId": txn_id},
+                    auth=(settings.CP_PUBLIC_ID, settings.CP_API_SECRET)
+                )
+                capture_data = capture_resp.json()
+
+                if capture_data.get("Success"):
+                    order.status = "hold"
+                    order.transaction_id = txn_id
+                    await db.commit()
+                    logger.info(f"Платёж прошёл: {order_id}, транзакция: {txn_id}")
+                    return PaymentResult(success=True, transaction_id=txn_id, message="Оплата прошла")
+                else:
+                    # Отмена холда при ошибке capture
+                    await client.post(
+                        "https://api.cloudpayments.ru/payments/refund",
+                        json={"TransactionId": txn_id},
+                        auth=(settings.CP_PUBLIC_ID, settings.CP_API_SECRET)
+                    )
+                    return PaymentResult(success=False, message=capture_data.get("Message", "Ошибка подтверждения"))
+            else:
+                return PaymentResult(success=False, message=data.get("Message", "Ошибка оплаты"))
+        except Exception as e:
+            logger.error(f"Ошибка CloudPayments: {e}")
+            return PaymentResult(success=False, message=str(e))
+
+@app.post("/orders/{order_id}/pay-card", response_model=PaymentResult)
+async def pay_card(order_id: str, req: dict, db: AsyncSession = Depends(get_db)):
+    """Прямая оплата картой через CloudPayments (charge)."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+
+    card_number = req.get("card_number", "")
+    card_exp = req.get("card_exp", "")
+    card_cvv = req.get("card_cvv", "")
+
+    async with httpx.AsyncClient() as client:
+        try:
+            # Одностадийный платёж (charge) — работает без криптограммы
+            response = await client.post(
+                "https://api.cloudpayments.ru/payments/cards/charge",
+                json={
+                    "Amount": order.amount,
+                    "Currency": "RUB",
+                    "IpAddress": "127.0.0.1",
+                    "Name": "CARDHOLDER",
+                    "CardNumber": card_number,
+                    "CardExpDate": card_exp,
+                    "CardCvv": card_cvv,
+                    "PublicId": settings.CP_PUBLIC_ID,
+                    "InvoiceId": order_id,
+                    "Description": order.description
+                },
+                auth=(settings.CP_PUBLIC_ID, settings.CP_API_SECRET)
+            )
+            data = response.json()
+
+            if data.get("Success"):
+                order.status = "hold"
+                order.transaction_id = str(data.get("Model", {}).get("TransactionId", ""))
+                await db.commit()
+                logger.info(f"Платёж прошёл: {order_id}, транзакция: {order.transaction_id}")
+                return PaymentResult(success=True, transaction_id=order.transaction_id, message="Оплата прошла")
+            else:
+                return PaymentResult(success=False, message=data.get("Message", "Ошибка оплаты"))
+        except Exception as e:
+            logger.error(f"Ошибка CloudPayments: {e}")
+            return PaymentResult(success=False, message=str(e))
+
+
+
 # ═══════════════════════════════
 # ЧАТ
 # ═══════════════════════════════
@@ -617,7 +797,22 @@ async def get_messages(order_id: str, limit: int = 100, db: AsyncSession = Depen
         ]
     }
 
+@app.post("/orders/{order_id}/confirm-payment")
+async def confirm_payment(order_id: str, transaction_id: str, db: AsyncSession = Depends(get_db)):
+    """Подтвердить, что виджет CloudPayments успешно провёл платёж."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
 
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+
+    order.status = "hold"
+    order.transaction_id = transaction_id
+    await db.commit()
+
+    logger.info(f"Платёж подтверждён: {order_id}, транзакция: {transaction_id}")
+
+    return {"success": True, "order_id": order_id, "status": order.status}
 
 
 
@@ -627,8 +822,20 @@ async def get_messages(order_id: str, limit: int = 100, db: AsyncSession = Depen
 
 @app.get("/info/legal")
 async def legal_info():
+    """Законы, реквизиты и оферта."""
     return {
         "title": "Правовая информация",
+        "company": {
+            "name": "ИП Боклогов Виктор Сергеевич",  # ← свое
+            "inn": "366411567530",                          # ← свое
+            "ogrnip": "326366800068466",                    # ← свое
+            "address": "г. Воронеж, ул. лет.Щербакова, д. 31"  # ← свое
+        },
+        "payment_info": {
+            "description": "Платформа для связи заказчиков и исполнителей. Пользователи могут создавать заказы на любые услуги, не запрещённые законодательством РФ.",
+            "min_price": "Минимальная сумма заказа — 100 рублей. Итоговая стоимость рассчитывается при создании заказа.",
+            "refund_policy": "Возврат предоплаты производится в полном объёме при отмене заказа до его выполнения. При наличии спора — через чат платформы."
+        },
         "laws": [
             {
                 "name": "ФЗ-422 «О самозанятых»",
@@ -646,7 +853,7 @@ async def legal_info():
                 "description": "Финансовый мониторинг и безопасность"
             }
         ],
-        "oferta": "Публичная оферта будет доступна после регистрации компании.",
+        "oferta": "Публичная оферта доступна по ссылке: https://ipartnyor.ru/info/oferta",
         "checks": "Чеки формируются автоматически при каждом списании средств.",
-        "commission": "Комиссия платформы составляет 10% от суммы заказа."
+        "commission": "Комиссия платформы — 2.4%. С учётом комиссии эквайринга (2.6%) итоговая комиссия не превышает 5%."
     }
