@@ -4,6 +4,7 @@ from typing import Optional
 import httpx
 from core.config import settings
 from core.models import PaymentResult
+from core.alfa_gateway import AlfaBankGateway
 
 
 class GatewayName(str, Enum):
@@ -177,11 +178,14 @@ class YooKassaGateway(BasePaymentGateway):
 # ФАБРИКА: выбирает шлюз по настройке
 # ═══════════════════════════════════════════
 
-def get_gateway() -> BasePaymentGateway:
-    """Возвращает нужный шлюз в зависимости от GATEWAY в .env."""
-    if settings.GATEWAY == GatewayName.CLOUDPAYMENTS:
+
+
+def get_gateway():
+    if settings.GATEWAY == "alfabank":
+        return AlfaBankGateway()
+    elif settings.GATEWAY == "cloudpayments":
         return CloudPaymentsGateway()
-    elif settings.GATEWAY == GatewayName.YOOKASSA:
+    elif settings.GATEWAY == "yookassa":
         return YooKassaGateway()
     else:
         raise ValueError(f"Неизвестный шлюз: {settings.GATEWAY}")

@@ -35,7 +35,10 @@
         <div id="screen-reg-customer" class="screen">
             <p class="subtitle">Вход для заказчика</p>
             <input type="text" id="login-customer" placeholder="Логин" autocomplete="username">
-            <input type="password" id="password-customer" placeholder="Пароль" autocomplete="current-password">
+            <div style="position:relative;">
+                <input type="password" id="password-customer" placeholder="Пароль" autocomplete="current-password" style="padding-right:40px;">
+                <span onclick="togglePassword('password-customer')" style="position:absolute;right:12px;top:14px;cursor:pointer;">👁</span>
+            </div>
             <button class="btn btn-primary" onclick="loginCustomer()">Войти</button>
             <button class="btn btn-link" onclick="showRegisterForm('customer')">Регистрация</button>
             <button class="btn btn-link" onclick="goTo('screen-role')">← Назад</button>
@@ -45,7 +48,10 @@
         <div id="screen-reg-executor" class="screen">
             <p class="subtitle">Вход для исполнителя</p>
             <input type="text" id="login-executor" placeholder="Логин" autocomplete="username">
-            <input type="password" id="password-executor" placeholder="Пароль" autocomplete="current-password">
+            <div style="position:relative;">
+                <input type="password" id="password-executor" placeholder="Пароль" autocomplete="current-password" style="padding-right:40px;">
+                <span onclick="togglePassword('password-executor')" style="position:absolute;right:12px;top:14px;cursor:pointer;">👁</span>
+            </div>
             <button class="btn btn-secondary" onclick="loginExecutor()">Войти</button>
             <button class="btn btn-link" onclick="showRegisterForm('executor')">Регистрация</button>
             <button class="btn btn-link" onclick="goTo('screen-role')">← Назад</button>
@@ -57,10 +63,17 @@
             <input type="text" id="reg-name" placeholder="Ваше имя">
             <input type="tel" id="reg-phone" placeholder="Телефон">
             <input type="text" id="reg-login" placeholder="Придумайте логин">
-            <input type="password" id="reg-password" placeholder="Придумайте пароль">
+            <div style="position:relative;">
+                <input type="password" id="reg-password" placeholder="Придумайте пароль" style="padding-right:40px;">
+                <span onclick="togglePassword('reg-password')" style="position:absolute;right:12px;top:14px;cursor:pointer;">👁</span>
+            </div>
             <div id="reg-executor-fields" style="display:none;">
                 <input type="text" id="reg-inn" placeholder="ИНН (12 цифр)">
                 <input type="text" id="reg-card" placeholder="Номер карты (16 цифр)">
+                <div style="margin-top:8px;font-size:0.85rem;color:#cd7f32;">
+                    <input type="checkbox" id="reg-agreement" style="width:auto;margin-right:8px;">
+                    Я подтверждаю, что являюсь плательщиком НПД (самозанятым), самостоятельно уплачиваю налоги и несу ответственность за законность оказываемых услуг.
+                </div>
             </div>
             <button class="btn btn-primary" id="reg-submit-btn" onclick="submitRegister()">Зарегистрироваться</button>
             <button class="btn btn-link" onclick="goBack()">← Назад</button>
@@ -80,6 +93,7 @@
             <p class="subtitle">Новый заказ</p>
             <textarea id="order-description" placeholder="Опишите, что нужно сделать..."></textarea>
             <input type="number" id="order-amount" placeholder="Сумма в рублях" min="1" step="1">
+            <input type="text" id="order-secret" placeholder="Кодовое слово (не обязательно)">
             <button class="btn btn-primary" onclick="createOrder()">Создать и внести предоплату</button>
             <button class="btn btn-link" onclick="goTo('screen-customer-menu')">← Назад</button>
         </div>

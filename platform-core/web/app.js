@@ -37,7 +37,11 @@ function goBack() {
     }
 
     if (currentUser) {
-        goTo(currentUser.role === 'customer' ? 'screen-customer-menu' : 'screen-executor-menu');
+        if (currentUser.role === 'customer' || currentUser.role === 'admin') {
+            goTo('screen-customer-menu');
+        } else {
+            goTo('screen-executor-menu');
+        }
     } else {
         goTo('screen-role');
     }
@@ -97,7 +101,7 @@ function enterAs(role) {
     const savedUserId = localStorage.getItem(`${role}_userId`);
     if (savedUserId) {
         api('GET', '/auth/me', null, { user_id: savedUserId }).then(data => {
-            if (data && data.user_id && !data.is_blocked) {
+            if (data && data.user_id && !data.is_blocked && (data.role === role || data.role === 'admin')) {
                 currentUser = data;
                 goToMenu();
             } else {
@@ -129,7 +133,7 @@ async function doLogin(role, loginId, passwordId) {
     if (!login || !password) { showToast('Введите логин и пароль', 'error'); return; }
 
     const data = await api('POST', '/auth/login', { login, password });
-    if (data && data.user_id && data.role === role) {
+    if (data && data.user_id && (data.role === role || data.role === 'admin')) {
         currentUser = data;
         localStorage.setItem(`${role}_userId`, data.user_id);
         goToMenu();
@@ -144,7 +148,7 @@ function goToMenu() {
         return;
     }
 
-    if (currentUser.role === 'customer') {
+    if (currentUser.role === 'customer' || currentUser.role === 'admin') {
         document.getElementById('customer-greeting').textContent = `Привет, ${currentUser.full_name}!`;
         goTo('screen-customer-menu');
     } else {
@@ -154,29 +158,83 @@ function goToMenu() {
 }
 
 async function showInfo() {
-    const data = await api('GET', '/info/legal');
-    if (!data) return;
-
     const container = document.getElementById('orders-list');
     container.innerHTML = `
         <div class="card">
-            <p><b>${data.title}</b></p>
-            <p><b>Компания:</b> ${data.company.name}</p>
-            <p><b>ИНН:</b> ${data.company.inn}</p>
-            <p><b>ОГРНИП:</b> ${data.company.ogrnip}</p>
-            <p><b>Адрес:</b> ${data.company.address}</p>
+            <p><b>📋 Правовая информация</b></p>
+            <p><b>Компания:</b> ИП Боклогов Виктор Сергеевич</p>
+            <p><b>ИНН:</b> 366411567530</p>
+            <p><b>ОГРНИП:</b> 326366800068466</p>
+            <p><b>Адрес:</b> г. Воронеж, ул. лет.Щербакова, д. 31</p>
             <hr>
-            <p>${data.payment_info.description}</p>
-            <p>${data.payment_info.min_price}</p>
-            <p>${data.payment_info.refund_policy}</p>
-            <hr>
-            <p><b>Комиссия платформы:</b> 2.4% (итоговая комиссия с учётом эквайринга — не более 5%)</p>
-            <p>${data.checks}</p>
+            <p>Платформа для связи заказчиков и исполнителей. Пользователи могут создавать заказы на любые услуги, не запрещённые законодательством РФ.</p>
+            <p>Минимальная сумма заказа — 100 рублей.</p>
+            <p>Возврат предоплаты при отмене заказа до его выполнения.</p>
+            <p>Комиссия платформы: 2.4% (с учётом эквайринга — не более 5%).</p>
+            <p>Чеки формируются автоматически.</p>
+        </div>
+
+        <div class="card">
+            <p><b>💳 Принимаем к оплате</b></p>
+            <div style="display:flex;gap:12px;align-items:center;margin:12px 0;">
+                <img src="https://cdn.cloudpayments.ru/images/visa-logo.svg" alt="Visa" style="height:30px;">
+                <img src="https://cdn.cloudpayments.ru/images/mastercard-logo.svg" alt="Mastercard" style="height:30px;">
+                <img src="https://cdn.cloudpayments.ru/images/mir-logo.svg" alt="МИР" style="height:30px;">
+            </div>
+            <p style="font-size:0.8rem;color:#8b6b4b;">Платёжный партнёр: Т-Банк (T-Pay), агрегатор CloudPayments</p>
+        </div>
+        <div class="card">
+            <p><b>🛡️ Безопасная сделка (ЮKassa)</b></p>
+            <p>Платформа использует сервис «Безопасная сделка» от ЮKassa.</p>
+            <p>Деньги заказчика замораживаются на счёте ЮKassa до подтверждения выполнения заказа.</p>
+            <p>Платформа получает только комиссию 2.4%.</p>
+            <p>Срок заморозки — до 30 дней.</p>
+            <p>При отмене — возврат заказчику. При выполнении — выплата исполнителю.</p>
+            <p style="font-size:0.8rem;color:#8b6b4b;">ЮKassa гарантирует сохранность средств.</p>
+        </div>
+        <div class="card">
+            <p><b>📦 Каталог услуг</b></p>
+            <p style="font-size:0.85rem;color:#8b6b4b;">Примеры услуг с фиксированными ценами:</p>
+            <div style="margin-top:8px;">
+                <p>🔧 Мелкий ремонт (1 час) — <b>500 ₽</b></p>
+                <p>📚 Репетиторство (1 занятие) — <b>800 ₽</b></p>
+                <p>🐕 Передержка животных (1 день) — <b>400 ₽</b></p>
+                <p>🚗 Доставка по городу — <b>350 ₽</b></p>
+                <p>🧹 Клининг (1 час) — <b>600 ₽</b></p>
+                <p>💅 Маникюр — <b>1 200 ₽</b></p>
+            </div>
+            <p style="font-size:0.8rem;color:#8b6b4b;margin-top:8px;">Цены устанавливаются исполнителями при создании заказа. Выше приведены примеры.</p>
+        </div>
+        <div class="card">
+            <p><b>📞 Контакты</b></p>
+            <p>Email поддержки: <a href="mailto:matematika1110@gmail.com" style="color:#cd7f32;">matematika1110@gmail.com</a></p>
+            <p>Telegram: <a href="https://t.me/ipartnyor" style="color:#cd7f32;">@ipartnyor</a></p>
+        </div>
+
+        <div class="card">
+            <p><b>📄 Документы</b></p>
+            <button class="btn btn-outline btn-sm" onclick="loadDocument('oferta')">📜 Публичная оферта</button>
+            <button class="btn btn-outline btn-sm" style="margin-top:8px;" onclick="loadDocument('privacy')">🔒 Политика конфиденциальности</button>
+            <div id="document-content" style="margin-top:12px;"></div>
         </div>
     `;
     goTo('screen-orders');
 }
 
+async function loadDocument(type) {
+    const url = type === 'oferta' ? '/info/oferta' : '/info/privacy';
+    const data = await api('GET', url);
+    if (!data) return;
+
+    const container = document.getElementById('document-content');
+    container.innerHTML = `
+        <div class="card" style="margin-top:12px;">
+            <p><b>${data.title}</b></p>
+            <p style="white-space:pre-wrap;font-size:0.85rem;">${data.text}</p>
+        </div>
+    `;
+    container.scrollIntoView({ behavior: 'smooth' });
+}
 // ═══════════════════════════════
 // РЕГИСТРАЦИЯ
 // ═══════════════════════════════
@@ -212,6 +270,11 @@ async function submitRegister() {
         showToast('Пароль минимум 4 символа', 'error');
         return;
     }
+    if (currentRegisterRole === 'executor' && !document.getElementById('reg-agreement').checked) {
+        showToast('Подтвердите согласие с условиями', 'error');
+        return;
+    }
+
 
     const body = {
         full_name: name,
@@ -236,6 +299,11 @@ async function submitRegister() {
     }
 }
 
+function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === 'password' ? 'text' : 'password';
+}
+
 
 // ═══════════════════════════════
 // СОЗДАНИЕ ЗАКАЗА
@@ -250,30 +318,14 @@ async function createOrder() {
 
     const orderData = await api('POST', '/orders/create', {
         customer_id: currentUser.user_id,
-        description, amount
+        description, amount,
+        secret_code: document.getElementById('order-secret').value.trim() || null
     });
     if (!orderData || !orderData.order_id) return;
 
-    // Показываем форму оплаты
     showPayWidget(orderData.order_id, amount, description);
 }
 
-async function createOrder() {
-    const description = document.getElementById('order-description').value.trim();
-    const amount = parseFloat(document.getElementById('order-amount').value);
-    if (!description || !amount || amount <= 0) {
-        showToast('Введите описание и сумму', 'error'); return;
-    }
-
-    const orderData = await api('POST', '/orders/create', {
-        customer_id: currentUser.user_id,
-        description, amount
-    });
-    if (!orderData || !orderData.order_id) return;
-
-    // Показываем форму прямой оплаты
-    showPayWidget(orderData.order_id, amount, description);
-}
 
 function showPayWidget(orderId, amount, description) {
     const container = document.getElementById('orders-list');
@@ -282,18 +334,29 @@ function showPayWidget(orderId, amount, description) {
             <p><b>Заказ:</b> ${orderId}</p>
             <p><b>Сумма:</b> ${amount} ₽</p>
             <p><b>Описание:</b> ${description}</p>
-            <p style="color:#8b6b4b;font-size:0.85rem;">Тестовый режим — оплата без реальной карты</p>
-            <button class="btn btn-primary" onclick="confirmTestPayment('${orderId}', ${amount}, '${description}')">✅ Подтвердить предоплату</button>
+            <p style="color:#cd7f32;font-size:0.85rem;">Вы будете перенаправлены на платёжную систему Альфа-Банка. Средства будут заморожены до подтверждения выполнения заказа.</p>
+            <button class="btn btn-primary" onclick="processAlfaPayment('${orderId}', ${amount}, '${description}')">💳 Перейти к оплате</button>
             <button class="btn btn-link" onclick="goBack()">← Отмена</button>
         </div>
     `;
     goTo('screen-orders');
 }
 
+async function processAlfaPayment(orderId, amount, description) {
+    showToast('Создаём платёж...', 'info');
+
+    const result = await api('POST', `/orders/${orderId}/pay-alfa`);
+
+    if (result && result.success && result.formUrl) {
+        localStorage.setItem('pendingOrderId', orderId);
+        window.location.href = result.formUrl;
+    } else {
+        showToast('Ошибка создания платежа: ' + (result?.message || 'неизвестно'), 'error');
+    }
+}
+
 async function confirmTestPayment(orderId, amount, description) {
-    const result = await api('POST', `/orders/${orderId}/confirm-payment`, null, {
-        transaction_id: 'test_' + Date.now()
-    });
+    const result = await api('POST', `/orders/${orderId}/pay-alfa`);
     if (result && result.success) {
         showToast(`Предоплата внесена! ID: ${orderId}`, 'success');
         sendNotification('Новый заказ', `Создан заказ на ${amount} ₽: ${description}`, orderId);
@@ -304,12 +367,18 @@ async function confirmTestPayment(orderId, amount, description) {
 }
 
 async function showMyOrders(filter = 'all') {
+
     currentView = 'my';
     const data = await api('GET', '/orders', null, { limit: 200, filter });
     const allOrders = data?.orders || [];
-    const myOrders = currentUser.role === 'customer'
-        ? allOrders.filter(o => o.customer_id === currentUser.user_id)
-        : allOrders.filter(o => o.executor_id === currentUser.user_id);
+    let myOrders;
+    if (currentUser.role === 'admin') {
+        myOrders = allOrders; // Админ видит все заказы
+    } else if (currentUser.role === 'customer') {
+        myOrders = allOrders.filter(o => o.customer_id === currentUser.user_id);
+    } else {
+        myOrders = allOrders.filter(o => o.executor_id === currentUser.user_id);
+    }
 
     const container = document.getElementById('orders-list');
     if (!myOrders.length) {
@@ -342,6 +411,9 @@ async function showMyOrders(filter = 'all') {
             if ((order.status === 'hold' || order.status === 'in_progress' || order.status === 'ready') && currentUser.role === 'customer') {
                 actions += `<button class="btn btn-link btn-sm" style="color:#8b0000;" onclick="cancelOrder('${order.order_id}')">❌ Отменить</button>`;
             }
+            if (order.status === 'completed' && currentUser.role === 'admin') {
+                actions += `<button class="btn btn-link btn-sm" style="color:#8b0000;" onclick="refundOrder('${order.order_id}')">↩ Возврат</button>`;
+            }
             return `<div class="card">
                 <div class="card-header">${order.order_id} <span class="status">${status}</span></div>
                 <div class="card-body"><p>${order.description}</p><p class="amount">${order.amount} ₽</p></div>
@@ -363,6 +435,7 @@ function showCreateOrder() {
 // ═══════════════════════════════
 
 async function showAvailableOrders(filter = 'all') {
+
     currentView = 'available';
     const data = await api('GET', '/orders', null, { limit: 100, filter });
     const orders = (data?.orders || []).filter(o => o.status === 'hold');
@@ -385,10 +458,25 @@ async function showAvailableOrders(filter = 'all') {
 }
 
 async function acceptOrder(orderId) {
-    const data = await api('POST', `/orders/${orderId}/accept`, null, { executor_id: currentUser.user_id });
+    // Если у заказа есть кодовое слово — запрашиваем
+    const order = await api('GET', `/orders/${orderId}`);
+    if (order && order.secret_code) {
+        const code = prompt('Введите кодовое слово для этого заказа:');
+        if (code !== order.secret_code) {
+            showToast('Неверное кодовое слово', 'error');
+            return;
+        }
+    }
+
+    const data = await api('POST', `/orders/${orderId}/accept`, null, {
+        executor_id: currentUser.user_id
+    });
+
     if (data && data.status === 'in_progress') {
         showToast('Заказ взят!', 'success');
         showAvailableOrders();
+    } else {
+        showToast('Не удалось взять заказ', 'error');
     }
 }
 
@@ -416,11 +504,21 @@ async function markReady(orderId) {
 }
 
 async function markComplete(orderId) {
+    if (!confirm(
+        '✅ Подтверждаю, что проверил(а) результат работы.\n' +
+        'Работа соответствует моим требованиям.\n' +
+        'Деньги будут перечислены исполнителю.\n' +
+        'Работа будет считаться завершённой.\n\n' +
+        'Согласно ст. 720 ГК РФ, заказчик обязан осмотреть и принять выполненную работу.'
+    )) return;
+
     const data = await api('POST', `/orders/${orderId}/complete`);
     if (data && data.success) {
         showToast('Заказ завершён!', 'success');
-        sendNotification('Заказ подтверждён', `Заказ ${orderId} завершён`, orderId);
+        sendNotification('Заказ подтверждён', `Заказ ${orderId} завершён`, 'completed-' + orderId);
         showMyOrders();
+    } else {
+        showToast('Ошибка: ' + (data?.message || 'неизвестно'), 'error');
     }
 }
 
@@ -450,19 +548,40 @@ function refreshOrders(filter = 'all') {
     }
 }
 
-async function acceptOrder(orderId) {
-    const data = await api('POST', `/orders/${orderId}/accept`, null, {
-        executor_id: currentUser.user_id
-    });
 
-    if (data && data.status === 'in_progress') {
-        showToast('Заказ взят!', 'success');
-        sendNotification('Заказ взят', `Заказ ${orderId} взят в работу`, orderId);
-        showAvailableOrders();
+
+async function refundOrder(orderId) {
+    if (!confirm('Вернуть деньги за заказ ' + orderId + '?')) return;
+    const result = await api('POST', `/orders/${orderId}/refund`);
+    if (result && result.success) {
+        showToast('Деньги возвращены', 'success');
+        showMyOrders();
     } else {
-        showToast('Не удалось взять заказ', 'error');
+        showToast('Ошибка возврата', 'error');
     }
 }
+
+let allOrdersCache = []; // Кэш всех заказов
+
+function searchOrders() {
+    const query = document.getElementById('search-orders').value.trim().toLowerCase();
+    const container = document.getElementById('orders-list');
+
+    if (!query) {
+        // Если поиск пустой — показываем все заказы
+        renderOrders(allOrdersCache);
+        return;
+    }
+
+    // Фильтруем по номеру заказа или описанию
+    const filtered = allOrdersCache.filter(o =>
+        o.order_id.toLowerCase().includes(query) ||
+        o.description.toLowerCase().includes(query)
+    );
+
+    renderOrders(filtered);
+}
+
 // ═══════════════════════════════
 // ОТЗЫВЫ
 // ═══════════════════════════════
@@ -731,6 +850,18 @@ function clearNotifications() {
 (function init() {
     // Скрываем все экраны
     document.querySelectorAll('.screen').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
+
+    const pendingOrderId = localStorage.getItem('pendingOrderId');
+    if (pendingOrderId) {
+        showToast('Проверяем статус платежа...', 'info');
+        localStorage.removeItem('pendingOrderId');
+        setTimeout(async () => {
+            const order = await api('GET', `/orders/${pendingOrderId}`);
+            if (order && order.status === 'hold') {
+                showToast('Оплата прошла!', 'success');
+            }
+        }, 2000);
+    }
 
     // Загружаем сохранённые уведомления
     try {

@@ -244,7 +244,8 @@ async def create_order(req: OrderCreateRequest, db: AsyncSession = Depends(get_d
         description=req.description,
         amount=req.amount,
         commission=commission,
-        status="created"
+        status="created",
+        secret_code=req.secret_code
     )
     db.add(order)
     await db.commit()
@@ -257,6 +258,7 @@ async def create_order(req: OrderCreateRequest, db: AsyncSession = Depends(get_d
         amount=order.amount,
         commission=order.commission,
         status=order.status,
+        secret_code=order.secret_code,
         created_at=order.created_at
     )
 
@@ -349,6 +351,10 @@ async def complete_order(order_id: str, db: AsyncSession = Depends(get_db)):
     if order.status != "ready":
         raise HTTPException(status_code=400, detail="Исполнитель ещё не подтвердил готовность")
 
+    # Проверяем статус заказа в Альфа-Банке
+    status = await gateway.get_status(order.transaction_id)
+    logger.info(f"Статус заказа в Альфа: {status}")
+
     payment_result = await gateway.capture(order.transaction_id)
 
     if payment_result.success:
@@ -372,7 +378,10 @@ async def cancel_order(order_id: str, db: AsyncSession = Depends(get_db)):
     if order.status == "completed":
         raise HTTPException(status_code=400, detail="Нельзя отменить завершённый заказ")
 
-    payment_result = await gateway.refund(order.transaction_id) if order.transaction_id else PaymentResult(success=True, message="Без транзакции")
+    if order.transaction_id:
+        payment_result = await gateway.cancel(order.transaction_id)
+    else:
+        payment_result = PaymentResult(success=True, message="Заказ отменён без транзакции")
 
     if payment_result.success:
         order.status = "cancelled"
@@ -423,6 +432,7 @@ async def get_order(order_id: str, db: AsyncSession = Depends(get_db)):
         transaction_id=order.transaction_id,
         created_at=order.created_at,
         completed_at=order.completed_at,
+        secret_code=order.secret_code,
         has_review=has_review  # ← добавили
     )
 
@@ -729,7 +739,84 @@ async def pay_card(order_id: str, req: dict, db: AsyncSession = Depends(get_db))
             logger.error(f"Ошибка CloudPayments: {e}")
             return PaymentResult(success=False, message=str(e))
 
+@app.post("/orders/{order_id}/pay-alfa")
+async def pay_alfa(order_id: str, db: AsyncSession = Depends(get_db)):
+    """Оплата через Альфа-Банк (холдирование)."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
 
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+    if order.status != "created":
+        raise HTTPException(status_code=400, detail="Заказ уже оплачен или отменён")
+
+    payment_result = await gateway.auth(
+        amount=order.amount,
+        currency="RUB",
+        invoice_id=order_id,
+        description=order.description
+    )
+
+    if payment_result.success:
+        order.status = "hold"
+        order.transaction_id = payment_result.transaction_id
+        await db.commit()
+        logger.info(f"DEBUG formUrl в payment_result.message: {payment_result.message}")
+        logger.info(f"Холд (Альфа): {order_id}, транзакция: {payment_result.transaction_id}")
+        return {
+            "success": True,
+            "transaction_id": payment_result.transaction_id,
+            "formUrl": payment_result.message
+        }
+
+@app.post("/orders/{order_id}/accept", response_model=OrderResponse)
+async def accept_order(order_id: str, executor_id: str, db: AsyncSession = Depends(get_db)):
+    """Исполнитель принимает заказ."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+    if order.status != "hold":
+        raise HTTPException(status_code=400, detail="Заказ нельзя принять")
+
+    order.executor_id = executor_id
+    order.status = "in_progress"
+    await db.commit()
+
+    logger.info(f"Заказ {order_id} принят исполнителем {executor_id}")
+
+    return OrderResponse(
+        order_id=order.order_id,
+        customer_id=order.customer_id,
+        executor_id=order.executor_id,
+        description=order.description,
+        amount=order.amount,
+        commission=order.commission,
+        status=order.status,
+        transaction_id=order.transaction_id,
+        created_at=order.created_at
+    )
+
+@app.post("/orders/{order_id}/refund", response_model=PaymentResult)
+async def refund_order(order_id: str, db: AsyncSession = Depends(get_db)):
+    """Возврат после списания (только админ)."""
+    result = await db.execute(select(OrderDB).where(OrderDB.order_id == order_id))
+    order = result.scalar_one_or_none()
+
+    if not order:
+        raise HTTPException(status_code=404, detail="Заказ не найден")
+    if order.status != "completed":
+        raise HTTPException(status_code=400, detail="Можно вернуть только завершённый заказ")
+
+    payment_result = await gateway.refund(order.transaction_id, order.amount)
+
+    if payment_result.success:
+        order.status = "refunded"
+        await db.commit()
+        logger.info(f"Возврат: {order_id}, сумма: {order.amount}")
+
+    return payment_result
 
 # ═══════════════════════════════
 # ЧАТ
@@ -826,15 +913,21 @@ async def legal_info():
     return {
         "title": "Правовая информация",
         "company": {
-            "name": "ИП Боклогов Виктор Сергеевич",  # ← свое
-            "inn": "366411567530",                          # ← свое
-            "ogrnip": "326366800068466",                    # ← свое
-            "address": "г. Воронеж, ул. лет.Щербакова, д. 31"  # ← свое
+            "name": "ИП Боклогов Виктор Сергеевич",
+            "inn": "366411567530",
+            "ogrnip": "326366800068466",
+            "address": "г. Воронеж, ул. лет.Щербакова, д. 31"
         },
         "payment_info": {
             "description": "Платформа для связи заказчиков и исполнителей. Пользователи могут создавать заказы на любые услуги, не запрещённые законодательством РФ.",
             "min_price": "Минимальная сумма заказа — 100 рублей. Итоговая стоимость рассчитывается при создании заказа.",
             "refund_policy": "Возврат предоплаты производится в полном объёме при отмене заказа до его выполнения. При наличии спора — через чат платформы."
+        },
+        "safe_deal": {
+            "title": "Безопасная сделка (ЮKassa)",
+            "description": "Платформа использует сервис «Безопасная сделка» от ЮKassa. Деньги заказчика замораживаются на счёте ЮKassa до подтверждения выполнения заказа. Платформа получает только комиссию 2.4%.",
+            "conditions": "Срок заморозки — до 30 дней. При отмене заказа деньги возвращаются заказчику. При успешном выполнении — переводятся исполнителю.",
+            "guarantees": "ЮKassa гарантирует сохранность средств. Платформа выступает посредником и не несёт ответственности за качество услуг."
         },
         "laws": [
             {
@@ -856,4 +949,75 @@ async def legal_info():
         "oferta": "Публичная оферта доступна по ссылке: https://ipartnyor.ru/info/oferta",
         "checks": "Чеки формируются автоматически при каждом списании средств.",
         "commission": "Комиссия платформы — 2.4%. С учётом комиссии эквайринга (2.6%) итоговая комиссия не превышает 5%."
+    }
+
+@app.get("/info/oferta")
+async def oferta():
+    """Публичная оферта."""
+    return {
+        "title": "Публичная оферта",
+        "text": """
+1. ОБЩИЕ ПОЛОЖЕНИЯ
+1.1. ИП Боклогов Виктор Сергеевич (ИНН 366411567530, ОГРНИП 326366800068466) предлагает физическим и юридическим лицам услуги платформы «Партнёр» на условиях настоящей оферты.
+
+2. ПРЕДМЕТ ДОГОВОРА
+2.1. Платформа предоставляет возможность заказчикам публиковать задания, а исполнителям — принимать их к выполнению.
+2.2. Платформа выступает посредником и не несёт ответственности за качество оказываемых исполнителями услуг.
+
+3. ПОРЯДОК РАБОТЫ
+3.1. Заказчик создаёт заказ с описанием и суммой.
+3.2. Заказчик вносит предоплату (сумма заказа + комиссия платформы 2.4%).
+3.3. Исполнитель принимает заказ к выполнению.
+3.4. После выполнения исполнитель уведомляет заказчика.
+3.5. Заказчик подтверждает выполнение — деньги перечисляются исполнителю.
+
+4. ВОЗВРАТ СРЕДСТВ
+4.1. При отмене заказа до его выполнения предоплата возвращается в полном объёме.
+4.2. Споры решаются путём переговоров через чат платформы.
+
+5. КОМИССИЯ
+5.1. Комиссия платформы составляет 2.4% от суммы заказа. Итоговая комиссия с учётом эквайринга — не более 5%.
+
+6. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ
+6.1. Используя платформу, пользователь соглашается с условиями настоящей оферты.
+6.2. Платформа оставляет за собой право изменять условия оферты с уведомлением пользователей.
+        """
+    }
+@app.get("/info/privacy")
+async def privacy():
+    """Политика конфиденциальности."""
+    return {
+        "title": "Политика конфиденциальности",
+        "text": """
+1. ОБЩИЕ ПОЛОЖЕНИЯ
+1.1. Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей платформы «Партнёр» (https://ipartnyor.ru).
+
+2. КАКИЕ ДАННЫЕ МЫ СОБИРАЕМ
+2.1. При регистрации: ФИО, телефон, email, ИНН (для исполнителей).
+2.2. При создании заказа: описание услуги, сумма.
+2.3. Технические данные: IP-адрес, тип браузера, cookies.
+
+3. ЦЕЛИ ОБРАБОТКИ ДАННЫХ
+3.1. Идентификация пользователя на платформе.
+3.2. Обеспечение связи между заказчиком и исполнителем.
+3.3. Формирование чеков и отчётности (в соответствии с 54-ФЗ).
+3.4. Улучшение работы сервиса.
+
+4. ХРАНЕНИЕ И ЗАЩИТА ДАННЫХ
+4.1. Данные хранятся на серверах на территории РФ.
+4.2. Мы используем шифрование (SSL) для защиты передачи данных.
+4.3. Доступ к данным имеют только уполномоченные сотрудники.
+
+5. ПЕРЕДАЧА ДАННЫХ ТРЕТЬИМ ЛИЦАМ
+5.1. Данные могут передаваться: Федеральной налоговой службе (в рамках 54-ФЗ), платёжным системам (для обработки платежей).
+5.2. Мы не продаём и не передаём данные в рекламных целях.
+
+6. ПРАВА ПОЛЬЗОВАТЕЛЕЙ
+6.1. Пользователь может запросить удаление своих данных, написав на matematika1110@gmail.com.
+6.2. Пользователь может отказаться от получения уведомлений в настройках.
+
+7. СРОК ДЕЙСТВИЯ
+7.1. Политика действует бессрочно до замены новой версией.
+7.2. Мы уведомим пользователей об изменениях через сайт.
+        """
     }

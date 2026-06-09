@@ -18,5 +18,9 @@ class Settings:
     APP_TITLE: str = os.getenv("APP_TITLE", "Platform API")
     DEBUG: bool = os.getenv("DEBUG", "true").lower() == "true"
 
+    # Ключи Альфа
+    ALFA_USERNAME: str = os.getenv("ALFA_USERNAME", "")
+    ALFA_PASSWORD: str = os.getenv("ALFA_PASSWORD", "")
+
 
 settings = Settings()

@@ -51,6 +51,7 @@ class OrderDB(Base):
     transaction_id = Column(String, nullable=True)  # ID транзакции в платёжном шлюзе
     created_at = Column(DateTime, default=datetime.utcnow)
     completed_at = Column(DateTime, nullable=True)
+    secret_code = Column(String, nullable=True)
 
     # Связи
     review = relationship("ReviewDB", back_populates="order", uselist=False)
@@ -140,6 +141,7 @@ class OrderCreateRequest(BaseModel):
     customer_id: str
     description: str
     amount: float  # в рублях
+    secret_code: Optional[str] = None
 
 
 class OrderResponse(BaseModel):
@@ -154,6 +156,7 @@ class OrderResponse(BaseModel):
     created_at: datetime
     completed_at: Optional[datetime] = None
     has_review: bool = False  # ← добавили
+    secret_code: Optional[str] = None
 
 
 # --- Отзывы ---
